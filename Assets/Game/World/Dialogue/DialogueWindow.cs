@@ -55,8 +55,9 @@ public sealed class DialogueWindow : MonoBehaviour
         _replicas = replicas;
         _icon.sprite = replicas[_currentReplicaIndex].Icon;
 
-        foreach (var dialogue in replicas[_currentReplicaIndex].Dialogues)
+        foreach (var d in replicas[_currentReplicaIndex].Dialogues)
         {
+            var dialogue = d.Replace("&", "Denis");
             var line = Instantiate(_dialogueLinePrefab, _container);
             var text = string.Empty;
             _lines.Add(line);

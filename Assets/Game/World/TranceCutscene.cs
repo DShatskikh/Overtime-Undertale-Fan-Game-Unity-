@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public sealed class TranceCutscene : MonoBehaviour
 {
@@ -8,10 +7,13 @@ public sealed class TranceCutscene : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.GetComponent<Player>())
+            return;
+        
         Player.Instance.enabled = false;
         DialogueWindow.Open(_replicas, () =>
         {
-            SceneManager.LoadScene(3);
+            Instantiate(Resources.Load<StartBattleAnimation>("StartBattleAnimation"));
         });
     }
 }

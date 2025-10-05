@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 7821192017898812411}
   - component: {fileID: 4786086460754197180}
   - component: {fileID: 189078970875359377}
-  - component: {fileID: -4778921079649122058}
   - component: {fileID: 1696422955174697992}
+  - component: {fileID: -4778921079649122058}
   m_Layer: 5
   m_Name: Dialogue Window
   m_TagString: Untagged
@@ -179,22 +179,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &-4778921079649122058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5011267507786568869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aae1c87ed5745829c25f4d406dffc0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dialogueLinePrefab: {fileID: -5429651668365590877, guid: 08a2e4addf6f1d7428eed14c6339dcf2, type: 3}
-  _icon: {fileID: 3847481198997441226}
-  _container: {fileID: 2332464239570427591}
-  _sfx: {fileID: 1696422955174697992}
 --- !u!82 &1696422955174697992
 AudioSource:
   m_ObjectHideFlags: 0
@@ -206,7 +190,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 85bbddeeaa2ae30478978954362dff05, type: 3}
+  m_Resource: {fileID: 8300000, guid: ed04e432d3632b346a492500d9f4253c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -292,6 +276,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4778921079649122058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011267507786568869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aae1c87ed5745829c25f4d406dffc0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueLinePrefab: {fileID: -5429651668365590877, guid: 08a2e4addf6f1d7428eed14c6339dcf2, type: 3}
+  _icon: {fileID: 3847481198997441226}
+  _container: {fileID: 2332464239570427591}
+  _sfx: {fileID: 1696422955174697992}
 --- !u!1 &7184005319908813462
 GameObject:
   m_ObjectHideFlags: 0
