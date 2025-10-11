@@ -819,7 +819,7 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 7b3c7cf5391204543a547b4e4c9443d7, type: 3}
   - Dialogues:
     - ...
-    Icon: {fileID: 21300000, guid: 7b3c7cf5391204543a547b4e4c9443d7, type: 3}
+    Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
   - Dialogues:
     - Ah, look luv.
     - Don't give me that face.

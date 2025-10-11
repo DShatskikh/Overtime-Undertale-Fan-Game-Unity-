@@ -37,13 +37,45 @@ public sealed class Player : MonoBehaviour
         {
             Stop();
         }
-    }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SearchUsableAndUse();
+        }
+    }   
 
     private void FixedUpdate()
     {
         _previousPosition = _rigidbody.position;
     }
 
+    private void SearchUsableAndUse()
+    {
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+    
+        if (colliders.Length > 0)
+        {
+            var minDistance = float.MaxValue;
+            IUsable nearestUseObject = null;
+                
+            foreach (var collider in colliders)
+            {
+                if (collider.TryGetComponent(out IUsable useObject))
+                {
+                    var currentDistance = Vector2.Distance(transform.position, ((MonoBehaviour)useObject).transform.position);
+                        
+                    if (minDistance > currentDistance)
+                    {
+                        minDistance = currentDistance;
+                        nearestUseObject = useObject;
+                    }
+                }
+            }
+                
+            nearestUseObject?.Use();
+        }
+    }
+    
     private void Move(Vector2 direction, bool isRun)
     {
         if (direction.x == 0)

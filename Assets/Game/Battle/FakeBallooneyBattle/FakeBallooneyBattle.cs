@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 public sealed class FakeBallooneyBattle : MonoBehaviour
 {
     [SerializeField]
-    private Transform _container;
-
-    [SerializeField]
     private SpriteRenderer _ballooneyView;
 
     [SerializeField]
@@ -57,11 +54,14 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
     
     [SerializeField, TextArea]
     private string[] _replicas8; // Реч во время перехода
-    
-    private void Start()
+
+    private GameObject _hint;
+    private Coroutine _hintCoroutine;
+
+    private void Awake()
     {
         if (Player.Instance)
-            _container.transform.position = Player.Instance.transform.position;
+            transform.position = Player.Instance.transform.position;
 
         if (!Soul.Instance)
         {
@@ -72,6 +72,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         StartCoroutine(AwaitCutscene());
     }
 
+    
     private IEnumerator AwaitCutscene()
     {
         Soul.Instance.enabled = false;
@@ -81,7 +82,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         var isEnd = false;
         MessageEnemyBattle.SFX = _normalSFX;
         var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle Big"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas, () =>
         {
@@ -92,7 +93,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas1, () =>
         {
@@ -100,11 +101,11 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         });
         
         yield return new WaitUntil(() => isEnd);
-        StartCoroutine(AwaitHint());
+        _hintCoroutine = StartCoroutine(AwaitHint());
         
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas2, () =>
         {
@@ -112,12 +113,19 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         });
 
         yield return new WaitUntil(() => isEnd);
+
+        if (_hintCoroutine != null)
+        {
+            StopCoroutine(_hintCoroutine);
+            Destroy(_hint);
+        }
         
         _bottle.SetActive(true);
-        
+
+        yield return new WaitForSeconds(1);
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(new []{ _replicas3 }, () =>
         {
@@ -127,16 +135,16 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         yield return new WaitUntil(() => isEnd);
 
         _bottle.SetActive(false);
-        Instantiate(Resources.Load<BeerBottleAttack>("Beer Bottle Attack"), 
+        var bottle = Instantiate(Resources.Load<BeerBottleAttack>("Beer Bottle Attack"), 
             _bottle.transform.position, Quaternion.identity, transform);
-
+        
+        yield return new WaitWhile(() => bottle);
         _ballooneyView.sprite = _ballooneyAngry;
-        yield return new WaitForSeconds(3);
         
         MessageEnemyBattle.SFX = _angrySFX;
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas4, () =>
         {
@@ -145,18 +153,18 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         
         yield return new WaitUntil(() => isEnd);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             Instantiate(Resources.Load<BeerBottleAttack>("Beer Bottle Attack"), 
                 _ballooneyView.transform.position, Quaternion.identity, transform);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.75f);
         }
         
         MessageEnemyBattle.SFX = _angrySFX;
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas5, () =>
         {
@@ -166,11 +174,13 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         yield return new WaitUntil(() => isEnd);
         yield return new WaitForSeconds(0.5f);
         Soul.Instance.Uber();
+        yield return new WaitForSeconds(2f);
+        _ballooneyView.sprite = _ballooneySad;
         
         MessageEnemyBattle.SFX = _normalSFX;
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas6, () =>
         {
@@ -178,13 +188,14 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         });
         
         yield return new WaitUntil(() => isEnd);
-
+        _ballooneyView.sprite = _ballooneyAngry;
+        
         for (int i = 0; i < 4; i++)
         {
             Instantiate(Resources.Load<BeerBottleAttack>("Beer Bottle Attack"), 
                 _ballooneyView.transform.position, Quaternion.identity, transform);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.75f);
         }
         
         MessageEnemyBattle.SFX = _angrySFX;
@@ -192,7 +203,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         
         isEnd = false;
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(new []{ _replicas7 }, () =>
         {
@@ -202,11 +213,15 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         yield return new WaitUntil(() => isEnd);
         
         messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
+            transform.position + new Vector3(1.46f, 3.41f), Quaternion.identity, transform);
         
         messageBox.Open(_replicas8, () => { });
-        
+
+        _whiteScreen.transform.position = transform.position;
         _whiteScreen.gameObject.SetActive(true);
+        
+        MusicPlayer.Instance.Stop();
+        
         var delta = 0f;
         
         while (delta < 1)
@@ -221,18 +236,19 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
 
     private IEnumerator AwaitHint()
     {
-        var hint = Instantiate(Resources.Load<GameObject>("Hint"), Soul.Instance.transform);
+        _hint = Instantiate(Resources.Load<GameObject>("Hint"), Soul.Instance.transform);
         
         for (int i = 0; i < 6; i++)
         {
-            hint.SetActive(true);
+            _hint.SetActive(true);
             yield return new WaitForSeconds(0.75f);
-            hint.SetActive(false);
+            _hint.SetActive(false);
             
             if (i != 5)
                 yield return new WaitForSeconds(0.5f);
         }
         
-        Destroy(hint);
+        Destroy(_hint);
+        _hintCoroutine = null;
     }
 }

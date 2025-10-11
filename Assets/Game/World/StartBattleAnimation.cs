@@ -49,12 +49,14 @@ public sealed class StartBattleAnimation : MonoBehaviour
             }
         }
 
-        while (Vector3.Distance(_soul.transform.position, _target.position) > 1)
+        while (Vector3.Distance(_soul.transform.position, _target.position) >= 0.1f)
         {
             _soul.transform.position = Vector3.MoveTowards(_soul.transform.position, _target.position, Time.deltaTime * 5);
             yield return null;
         }
 
+        _soul.transform.position = _target.position;
+            
         Camera.main.gameObject.SetActive(false);
         SceneManager.LoadScene(3, LoadSceneMode.Additive);
         

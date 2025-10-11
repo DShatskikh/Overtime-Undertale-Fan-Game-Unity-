@@ -16,6 +16,9 @@ public sealed class DialogueWindow : MonoBehaviour
     private RectTransform _container;
 
     [SerializeField]
+    private RectTransform _iconContainer;
+    
+    [SerializeField]
     private AudioSource _sfx;
 
     private Action _endAction;
@@ -53,7 +56,16 @@ public sealed class DialogueWindow : MonoBehaviour
     private IEnumerator AwaitWrite(Replica[] replicas)
     {
         _replicas = replicas;
-        _icon.sprite = replicas[_currentReplicaIndex].Icon;
+
+        if (replicas[_currentReplicaIndex].Icon != null)
+        {
+            _icon.sprite = replicas[_currentReplicaIndex].Icon; 
+            _iconContainer.gameObject.SetActive(true);
+        }
+        else
+        {
+            _iconContainer.gameObject.SetActive(false);
+        }
 
         foreach (var d in replicas[_currentReplicaIndex].Dialogues)
         {

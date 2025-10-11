@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: 90c1a6d8688f96c47957fea2f30c8040
+guid: b0df29479500097498db907937d1bba3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2045699480980091805
-    second: spr_beer_bottle_shards_1_0
+      213: -7400740490917522406
+    second: "\u0421\u043D\u0438\u043C\u043E\u043A \u044D\u043A\u0440\u0430\u043D\u0430
+      2025-10-11 163316_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +110,18 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_beer_bottle_shards_1_0
+      name: "\u0421\u043D\u0438\u043C\u043E\u043A \u044D\u043A\u0440\u0430\u043D\u0430
+        2025-10-11 163316_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 13
-        height: 14
+        width: 638
+        height: 473
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36c0bfe19273c93e0800000000000000
-      internalID: -2045699480980091805
+      spriteID: a14d20cfbb94b4990800000000000000
+      internalID: -7400740490917522406
       vertices: []
       indices: 
       edges: []
@@ -161,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_beer_bottle_shards_1_0: -2045699480980091805
+      "\u0421\u043D\u0438\u043C\u043E\u043A \u044D\u043A\u0440\u0430\u043D\u0430 2025-10-11 163316_0": -7400740490917522406
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
