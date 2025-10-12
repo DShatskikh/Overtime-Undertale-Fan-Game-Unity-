@@ -18,11 +18,23 @@ EditorBuildSettings:
     path: Assets/Game/Battle/FakeBallooneyBattle/FakeBallooneyBattle.unity
     guid: 5b6d058f72a1e43449bfd07e23b4c09e
   - enabled: 1
-    path: Assets/Game/World/Hospice.unity
+    path: Assets/Game/World/Hospice/Hospice.unity
     guid: d296fd80cdcc53e4ba3ae158804b7708
   - enabled: 1
-    path: Assets/Game/World/Hospice Corridor.unity
+    path: Assets/Game/World/Hospice/Hospice Corridor.unity
     guid: e54c21e7b7521c748a567c6a7c0672ed
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle_1/Puzzle_1.unity
+    guid: cc2e127ad44318b4887e4a3687b0d6f2
+  - enabled: 1
+    path: Assets/Game/World/EndDemo.unity
+    guid: 164b6d32f581d7b4e85bac0cf5ef2505
+  - enabled: 1
+    path: Assets/Game/Menu/Menu.unity
+    guid: e2a9f693f5207ae4984406e02b3ff8a7
+  - enabled: 1
+    path: Assets/Game/Intro/Intro.unity
+    guid: 11b93e0a7ab9c9d4389b26b2a7876638
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
   m_UseUCBPForAssetBundles: 0

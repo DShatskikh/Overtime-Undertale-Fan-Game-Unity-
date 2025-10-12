@@ -46,8 +46,8 @@ public sealed class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Instantiate(Resources.Load<Menu>("Menu"),  
-                new Vector3(Camera.main.transform.position.x -3.02f,
-                    Camera.main.transform.position.y + 0.4300001f), Quaternion.identity, transform);
+                new Vector3(Camera.main.transform.position.x - 3.88f,
+                    Camera.main.transform.position.y - 0.5f), Quaternion.identity, transform);
             enabled = false;
         }
     }   
@@ -55,6 +55,12 @@ public sealed class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _previousPosition = _rigidbody.position;
+    }
+
+    public void SetDirection(Vector2 direction)
+    {
+        _animator.SetFloat("Vertical", direction.y);
+        _animator.SetFloat("Horizontal", direction.x);
     }
 
     private void SearchUsableAndUse()
@@ -83,7 +89,7 @@ public sealed class Player : MonoBehaviour
             nearestUseObject?.Use();
         }
     }
-    
+
     private void Move(Vector2 direction, bool isRun)
     {
         if (direction.x == 0)

@@ -5,7 +5,20 @@ public sealed class Bootstrap : MonoBehaviour
 {
     private void Awake()
     {
-        //SceneManager.LoadScene(1);
-        SceneManager.LoadScene(5);
+        Debug.Log(SaveSystem.HasKey("PlayerName"));
+        
+        if (!SaveSystem.HasKey("PlayerName"))
+        {
+            SceneManager.LoadScene(1);
+            return;
+        }
+
+        if (!SaveSystem.HasKey("IsHaveSavingUsableSaveStar"))
+        {
+            SceneManager.LoadScene(2);
+            return;
+        }
+
+        SceneManager.LoadScene(9);
     }
 }

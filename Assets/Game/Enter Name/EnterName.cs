@@ -205,6 +205,8 @@ public sealed class EnterName : MonoBehaviour
                     MusicPlayer.Instance.Stop();
                     _startGameSFX.Play();
                     yield return new WaitForSeconds(6);
+                    SaveSystem.SetString("PlayerName", _nameTextMesh.text);
+                    SaveSystem.Save();
                     SceneManager.LoadScene(2);
                 }
                 else

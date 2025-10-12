@@ -19,6 +19,9 @@ public sealed class DialogueWindow : MonoBehaviour
     private RectTransform _iconContainer;
     
     [SerializeField]
+    private RectTransform _frame;
+    
+    [SerializeField]
     private AudioSource _sfx;
 
     private Action _endAction;
@@ -44,12 +47,19 @@ public sealed class DialogueWindow : MonoBehaviour
         }
     }
 
-    public static void Open(Replica[] replicas, Action endAction)
+    public static void Open(Replica[] replicas, Action endAction, bool isPosition = true)
     {
         var prefab = Resources.Load<DialogueWindow>("Dialogue Window");
         _instance = Instantiate(prefab);
 
         _instance._endAction = endAction;
+
+        if (isPosition)
+        {
+            if (Player.Instance.transform.position.y + 2f < Camera.main.transform.position.y)
+                _instance._frame.anchoredPosition = new Vector2(_instance._frame.anchoredPosition.x, 506.2f); 
+        }
+
         _instance.StartCoroutine(_instance.AwaitWrite(replicas));
     }
 

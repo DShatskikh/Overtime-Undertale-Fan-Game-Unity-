@@ -10,8 +10,14 @@ public sealed class Menu : MonoBehaviour
     private GameObject _nodePanel;
 
     [SerializeField]
-    private Replica[] _ceilReplicas;
+    private AudioSource _selectSFX;
     
+    [SerializeField]
+    private AudioSource _menuSelectSFX;
+    
+    [SerializeField]
+    private Replica[] _ceilReplicas;
+
     private Soul _soul;
     private bool _isMainMenuSelected = true;
     private int _mainMenuSelected;
@@ -39,9 +45,15 @@ public sealed class Menu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 _mainMenuSelected--;
-                
+
                 if (_mainMenuSelected < 0)
+                {
                     _mainMenuSelected = 0;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
             }
             
             if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -49,7 +61,13 @@ public sealed class Menu : MonoBehaviour
                 _mainMenuSelected++;
 
                 if (_mainMenuSelected > 2)
+                {
                     _mainMenuSelected = 2;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
             }
 
             _soul.transform.localPosition = _mainMenuSelected switch
@@ -66,9 +84,15 @@ public sealed class Menu : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 _itemMenuSelected--;
-                
+
                 if (_itemMenuSelected < 0)
+                {
                     _itemMenuSelected = 0;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
             }
             
             if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -76,7 +100,13 @@ public sealed class Menu : MonoBehaviour
                 _itemMenuSelected++;
 
                 if (_itemMenuSelected > 7)
+                {
                     _itemMenuSelected = 7;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
             }
             
             _soul.transform.localPosition = _itemMenuSelected switch
@@ -103,20 +133,23 @@ public sealed class Menu : MonoBehaviour
                         _isItemMenuSelected = true;
                         _itemPanel.gameObject.SetActive(true);
                         _isMainMenuSelected = false;
+                        _menuSelectSFX.Play();
                         break;
                     case 1:
                         _isNodeMenuSelected = true;
                         _nodePanel.gameObject.SetActive(true);
                         _isMainMenuSelected = false;
                         _soul.gameObject.SetActive(false);
+                        _menuSelectSFX.Play();
                         break;
                     case 2:
                         enabled = false;
+                        _menuSelectSFX.Play();
                         
                         DialogueWindow.Open(_ceilReplicas, () =>
                         {
                             enabled = true;  
-                        });
+                        }, false);
                         break;
                 }
             }

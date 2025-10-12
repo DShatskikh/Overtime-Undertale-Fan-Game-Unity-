@@ -27,8 +27,14 @@ public sealed class TransitionScreen : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(indexScene);
-        yield return null;
+        yield return SceneManager.LoadSceneAsync(indexScene);
+
+        if (!Player.Instance)
+        {
+            Destroy(gameObject);
+            yield break;
+        }
+        
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y);
         Player.Instance.enabled = false;
         

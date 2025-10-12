@@ -292,6 +292,7 @@ MonoBehaviour:
   _icon: {fileID: 3847481198997441226}
   _container: {fileID: 2332464239570427591}
   _iconContainer: {fileID: 390620169824720671}
+  _frame: {fileID: 6502139440422260657}
   _sfx: {fileID: 1696422955174697992}
 --- !u!1 &5948569404711727140
 GameObject:
