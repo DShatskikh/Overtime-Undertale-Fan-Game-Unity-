@@ -42,6 +42,14 @@ public sealed class Player : MonoBehaviour
         {
             SearchUsableAndUse();
         }
+        
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Instantiate(Resources.Load<Menu>("Menu"),  
+                new Vector3(Camera.main.transform.position.x -3.02f,
+                    Camera.main.transform.position.y + 0.4300001f), Quaternion.identity, transform);
+            enabled = false;
+        }
     }   
 
     private void FixedUpdate()

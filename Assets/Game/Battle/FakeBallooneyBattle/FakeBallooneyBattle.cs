@@ -158,7 +158,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
             Instantiate(Resources.Load<BeerBottleAttack>("Beer Bottle Attack"), 
                 _ballooneyView.transform.position, Quaternion.identity, transform);
 
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(1.2f);
         }
         
         MessageEnemyBattle.SFX = _angrySFX;
@@ -172,7 +172,7 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         });
         
         yield return new WaitUntil(() => isEnd);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Soul.Instance.Uber();
         yield return new WaitForSeconds(2f);
         _ballooneyView.sprite = _ballooneySad;

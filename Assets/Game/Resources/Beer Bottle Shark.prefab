@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8578977581156431612}
   - component: {fileID: 8728945106506877861}
   - component: {fileID: 1810901687218497878}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Beer Bottle Shark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7295887837075049902}
   - component: {fileID: 6313456254637875503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: spr_beer_bottle_shards_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 554123157171801102}
   - component: {fileID: 1344592012993853232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: spr_beer_bottle_shards_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

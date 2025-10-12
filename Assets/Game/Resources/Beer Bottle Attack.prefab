@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8062851313129692739}
   - component: {fileID: 8578977581156431612}
   - component: {fileID: 5956865300706871074}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Beer Bottle Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

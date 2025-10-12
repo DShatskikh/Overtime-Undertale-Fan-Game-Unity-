@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2179772993583346415}
   - component: {fileID: 8038561623048597307}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Heal SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 1371789585271007944}
   - component: {fileID: 994846827478220880}
   - component: {fileID: 8939603033375025770}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Soul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
