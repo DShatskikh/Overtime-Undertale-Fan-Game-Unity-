@@ -10,6 +10,7 @@ public sealed class Player : MonoBehaviour
     private Animator _animator;
     private Vector2 _previousPosition;
     public static Player Instance { get; private set; }
+    public Vector2 GetDirection => new(_animator.GetFloat("Horizontal"), _animator.GetFloat("Vertical"));
 
     private void Awake()
     {
@@ -59,8 +60,8 @@ public sealed class Player : MonoBehaviour
 
     public void SetDirection(Vector2 direction)
     {
-        _animator.SetFloat("Vertical", direction.y);
         _animator.SetFloat("Horizontal", direction.x);
+        _animator.SetFloat("Vertical", direction.y);
     }
 
     private void SearchUsableAndUse()

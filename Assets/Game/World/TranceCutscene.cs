@@ -13,7 +13,8 @@ public sealed class TranceCutscene : MonoBehaviour
         Player.Instance.enabled = false;
         DialogueWindow.Open(_replicas, () =>
         {
-            Instantiate(Resources.Load<StartBattleAnimation>("StartBattleAnimation"));
+            var startBattleAnimation = Instantiate(Resources.Load<StartBattleAnimation>("StartBattleAnimation"));
+            startBattleAnimation.Init(3, new Vector2(0f, -2f), () => { });
         });
     }
 }

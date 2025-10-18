@@ -16,6 +16,7 @@ public sealed class TransitionScreen : MonoBehaviour
     {
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y);
         Player.Instance.enabled = false;
+        var direction = Player.Instance.GetDirection;
         var spriteRenderer = GetComponent<SpriteRenderer>();
 
         var delta = 0f;
@@ -37,7 +38,7 @@ public sealed class TransitionScreen : MonoBehaviour
         
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y);
         Player.Instance.enabled = false;
-        
+
         if (pointIndex != -1)
         {
             foreach (var transitionPoint in FindObjectsByType<TransitionPoint>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -49,6 +50,8 @@ public sealed class TransitionScreen : MonoBehaviour
                 }
             }
         }
+        
+        Player.Instance.SetDirection(direction);
         
         delta = 1f;
         

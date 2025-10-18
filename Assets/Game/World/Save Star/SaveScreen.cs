@@ -39,24 +39,12 @@ public sealed class SaveScreen : MonoBehaviour
     {
         if (_isPlayedAnimation)
             return;
-        
-        if (_isLeft)
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                _isLeft = false;
-                _soul.transform.position = transform.position + new Vector3(0.14f, -0.544f) * 3f;
-                _selectSFX.Play();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                _isLeft = true;
-                _soul.transform.position = transform.position + new Vector3(-1.61f, -0.544f) * 3f;
-                _selectSFX.Play();
-            }
+            _isLeft = !_isLeft;
+            _soul.transform.position = transform.position + (_isLeft ? new Vector3(-1.61f, -0.544f) * 3f : new Vector3(0.14f, -0.544f) * 3f);
+            _selectSFX.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -83,7 +71,8 @@ public sealed class SaveScreen : MonoBehaviour
         _label.text = $"Denis   LV1     {(int)GameTimer.Instance.GetTime - (int)GameTimer.Instance.GetTime % 60}:{(int)GameTimer.Instance.GetTime % 60}\n";
         _label.text += $"{_locationName}\n\n";
         _label.text += " File saved";
-        yield return new WaitForSeconds(2);
+        yield return null;
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         
         SaveSystem.SetBool("IsHaveSavingUsableSaveStar", true);
         SaveSystem.SetFloat("PositionX", Player.Instance.transform.position.x);

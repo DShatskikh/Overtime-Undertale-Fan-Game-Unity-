@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 124926778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6066663, y: -1.2099999, z: -10}
+  m_LocalPosition: {x: 1.9347625, y: -1.2099999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -464,13 +464,19 @@ MonoBehaviour:
   - Dialogues:
     - Ach du meine-
     Icon: {fileID: 0}
+    AnimationName: sani_surprised_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - You're awake!
     - I am so glad!
     Icon: {fileID: 0}
+    AnimationName: sani_normal_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - Oh! I must apologize.
     Icon: {fileID: 0}
+    AnimationName: sani_normal_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'You must be very
 
@@ -478,6 +484,8 @@ MonoBehaviour:
 
       you even are.'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'You were in a coma for
 
@@ -485,6 +493,8 @@ MonoBehaviour:
 
       only now woke up!'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'See, apparently you
 
@@ -492,6 +502,8 @@ MonoBehaviour:
 
       your roller scooter,'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'and you broke at least
 
@@ -500,47 +512,65 @@ MonoBehaviour:
       your body. Don''t
       worry,'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - they healed up nicely!
     - 'But if I hadn''t left for
 
       my walk this morning...'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'I don''t even want to
 
       imagine it.'
     Icon: {fileID: 0}
+    AnimationName: sani_worried_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - ...!
     Icon: {fileID: 0}
+    AnimationName: sani_normal_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - Where are my manners!
     - 'I need to introduce
 
       myself!'
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - I am SANI TATER.
     - 'You can just call me
 
       Sani.'
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'And currently you''re
 
       here at my hospital!'
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'Thanks to me, you are
 
       back to the living!'
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'I am very glad that the
 
       machine finally works.'
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'Oh? What machine, you
 
@@ -548,17 +578,23 @@ MonoBehaviour:
 
       about that later.'
     Icon: {fileID: 0}
+    AnimationName: sani_normal_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'First, I need you to
 
       follow me, please!'
     Icon: {fileID: 0}
+    AnimationName: sani_normal_speak
+    SFX: {fileID: 0}
   - Dialogues:
     - 'Take your time, then
 
       come to the next room!'
     - I'll see you there!
     Icon: {fileID: 0}
+    AnimationName: sani_happy_speak
+    SFX: {fileID: 0}
   _saniAnimator: {fileID: 2119241293}
   _warning: {fileID: 359686600}
 --- !u!61 &436657664
@@ -711,6 +747,8 @@ MonoBehaviour:
 
       blocking flower.)'
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!61 &623989475
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1037,6 +1075,8 @@ MonoBehaviour:
 
       blocking flower.)'
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!1 &961751588
 GameObject:
   m_ObjectHideFlags: 0
@@ -5873,6 +5913,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7024265037737255410, guid: 007c0a414a8b18248a08c8378f68e352, type: 3}
+      propertyPath: _index
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5998,7 +6042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitionSceneIndex: 6
-  _transitionPointIndex: 2
+  _transitionPointIndex: 1
 --- !u!61 &1067723585
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6307,9 +6351,13 @@ MonoBehaviour:
 
       on the wall.)'
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
   - Dialogues:
     - (Even more surprisingly, it actually works!)
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
 --- !u!61 &1289295975
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6682,6 +6730,8 @@ MonoBehaviour:
   - Dialogues:
     - (A very adoorable door.)
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!61 &1630198502
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12073,6 +12123,8 @@ MonoBehaviour:
     - (This one is just closed.)
     - (How rude.)
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!61 &1805425333
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12163,7 +12215,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 6.5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -12342,6 +12394,8 @@ MonoBehaviour:
 
       adoorable.)'
     Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!61 &1996299336
 BoxCollider2D:
   m_ObjectHideFlags: 0

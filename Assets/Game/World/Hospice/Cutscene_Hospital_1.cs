@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public sealed class Cutscene_Hospital_1 : MonoBehaviour
@@ -15,7 +14,7 @@ public sealed class Cutscene_Hospital_1 : MonoBehaviour
 
     private void Start()
     {
-        if (SaveSystem.GetBool("Cutscene_Hospital_1"))
+        if (SaveSystem.GetInt("Cutscene_Hospital") != 0)
         {
             Destroy(gameObject);
         }
@@ -82,8 +81,9 @@ public sealed class Cutscene_Hospital_1 : MonoBehaviour
             _saniAnimator.transform.position += new Vector3(Time.deltaTime * 2, 0);
         }
 
+        // Конец
         Player.Instance.enabled = true;
-        SaveSystem.SetBool("Cutscene_Hospital_1", true);
+        SaveSystem.SetInt("Cutscene_Hospital", 1);
         Destroy(gameObject);
     }
 }

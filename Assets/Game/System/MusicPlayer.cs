@@ -7,6 +7,7 @@ public sealed class MusicPlayer : MonoBehaviour
     
     private static MusicPlayer _instance;
     public static MusicPlayer Instance => _instance;
+    public AudioClip GetClip => _audioSource.clip;
 
     private void Start()
     {

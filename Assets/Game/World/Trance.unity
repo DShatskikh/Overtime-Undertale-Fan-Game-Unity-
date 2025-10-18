@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -801,53 +801,83 @@ MonoBehaviour:
   - Dialogues:
     - Oi oi!
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 8300000, guid: ed04e432d3632b346a492500d9f4253c, type: 3}
   - Dialogues:
     - '''ow ya doin'', guvnah?'
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Oh gee, you must be really confused, right?
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - You're dead!
     - Absolutely, utterly DEAD.
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Congratulations!
     Icon: {fileID: 21300000, guid: 7b3c7cf5391204543a547b4e4c9443d7, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Your adventure has ended before it has even started!
     Icon: {fileID: 21300000, guid: 7b3c7cf5391204543a547b4e4c9443d7, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - ...
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Ah, look luv.
     - Don't give me that face.
     Icon: {fileID: 21300000, guid: b55e20d41a5e2f7479cb2f56ce0b2fb8, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Alright, tell ya what!
     - I'm gonna introduce myself!
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - I'm BALLOONEY.
     - BALLOONEY the, uh, CORN?
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - I'm what you would call a BALLOONICORN, I mean.
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - What's your name?
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - '&?'
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - That's a bloody stupid name.
     Icon: {fileID: 21300000, guid: 189b35e1a6f10ac49a8ba2c5b48a3b66, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
   - Dialogues:
     - Right then!
     - Now let me explain a few things.
     Icon: {fileID: 21300000, guid: 5dd375c95cb82dd499a3bfc91f786f33, type: 3}
+    AnimationName: 
+    SFX: {fileID: 0}
 --- !u!1 &996253442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2902,7 +2932,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 6.5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

@@ -22,6 +22,9 @@ public sealed class DialogueWindow : MonoBehaviour
     private RectTransform _frame;
     
     [SerializeField]
+    private Animator _animator;
+    
+    [SerializeField]
     private AudioSource _sfx;
 
     private Action _endAction;
@@ -69,7 +72,14 @@ public sealed class DialogueWindow : MonoBehaviour
 
         if (replicas[_currentReplicaIndex].Icon != null)
         {
+            _animator.enabled = false;
             _icon.sprite = replicas[_currentReplicaIndex].Icon; 
+            _iconContainer.gameObject.SetActive(true);
+        }
+        else if (replicas[_currentReplicaIndex].AnimationName != string.Empty)
+        {
+            _animator.enabled = true;
+            _animator.CrossFade(replicas[_currentReplicaIndex].AnimationName, 0);
             _iconContainer.gameObject.SetActive(true);
         }
         else
@@ -83,7 +93,10 @@ public sealed class DialogueWindow : MonoBehaviour
             var line = Instantiate(_dialogueLinePrefab, _container);
             var text = string.Empty;
             _lines.Add(line);
-
+            
+            if (replicas[_currentReplicaIndex].SFX)
+                _sfx.clip = replicas[_currentReplicaIndex].SFX;
+            
             for (int i = 0; i < dialogue.Length; i++)
             {
                 _currentLetterIndex = i;
@@ -93,13 +106,16 @@ public sealed class DialogueWindow : MonoBehaviour
                 if (!_isSkip)
                 {
                     _sfx.Play();
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.1f); // replicas[_currentReplicaIndex].Speed
                 }
             }
             
             _currentDialogueIndex++;
         }
 
+        if (replicas[_currentReplicaIndex].AnimationName != string.Empty)
+            _animator.SetTrigger("StopSpeak");
+        
         yield return null;
         yield return null;
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
