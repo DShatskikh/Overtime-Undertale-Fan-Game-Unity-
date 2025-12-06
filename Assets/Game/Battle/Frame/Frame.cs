@@ -20,19 +20,19 @@ public sealed class Frame : MonoBehaviour
     {
         // Up
         _lines[0].localScale = new Vector3(_spriteRenderer.size.x, 0.05f);
-        _lines[0].localPosition = new Vector3(0,  _spriteRenderer.size.y / 2);
+        _lines[0].localPosition = new Vector3(0,  _spriteRenderer.size.y / 2 - 0.0243f);
         
         // Down
         _lines[1].localScale = new Vector3(_spriteRenderer.size.x, 0.05f);
-        _lines[1].localPosition = new Vector3(0, -_spriteRenderer.size.y / 2);
+        _lines[1].localPosition = new Vector3(0, -_spriteRenderer.size.y / 2 + 0.0243f);
         
         // Right
         _lines[2].localScale = new Vector3(0.05f, _spriteRenderer.size.y);
-        _lines[2].localPosition = new Vector3(_spriteRenderer.size.x / 2, 0);
+        _lines[2].localPosition = new Vector3(_spriteRenderer.size.x / 2 - 0.0243f, 0);
         
         // Left
         _lines[3].localScale = new Vector3(0.05f, _spriteRenderer.size.y);
-        _lines[3].localPosition = new Vector3(-_spriteRenderer.size.x / 2, 0);
+        _lines[3].localPosition = new Vector3(-_spriteRenderer.size.x / 2 + 0.0243f, 0);
     }
 
     public void SetSize(float width, float height)

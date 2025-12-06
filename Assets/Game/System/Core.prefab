@@ -154,6 +154,8 @@ MonoBehaviour:
     baseEncounterChance: 90
     Enemies:
     - {fileID: 11400000, guid: 816f6963229a8604a81a44247f8640a2, type: 2}
+    - {fileID: 11400000, guid: 043b8b1048711be4ca1e47014547da18, type: 2}
+    - {fileID: 11400000, guid: 6b050723d4e82b340b738b0b6722e00d, type: 2}
   mercyReduction: 10
 --- !u!1 &2992728550493712341
 GameObject:

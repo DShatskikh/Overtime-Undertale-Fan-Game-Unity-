@@ -39,6 +39,11 @@ public sealed class Soul : MonoBehaviour
         ChangeHealth?.Invoke(_health, _maxHealth);
     }
 
+    private void OnDisable()
+    {
+        _isInvulnerability = false;
+    }
+
     private void FixedUpdate()
     {
         _rigidbody.linearVelocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * _speed;

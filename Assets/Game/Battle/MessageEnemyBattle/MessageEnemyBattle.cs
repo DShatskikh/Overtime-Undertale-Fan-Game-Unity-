@@ -67,7 +67,7 @@ public sealed class MessageEnemyBattle : MonoBehaviour
 
         if (_currentReplicaIndex == _replicas.Length)
         {
-            _endAction.Invoke();
+            _endAction?.Invoke();
             Destroy(gameObject);
         }
         else

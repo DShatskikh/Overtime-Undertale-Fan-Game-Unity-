@@ -121,7 +121,7 @@ public sealed class DummyEnemy : Enemy
         if (_sparemeter <= 0)
             return "...:)";
 
-        throw new Exception("Нету комментария");
+        throw new Exception("Нужно добавить реплику");
     }
 
     public override void End()

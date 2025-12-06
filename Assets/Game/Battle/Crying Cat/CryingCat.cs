@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,18 +15,22 @@ public sealed class CryingCat : Enemy
         Australium = Random.Range(3, 4);
     }
 
-    public override IEnumerator AwaitFight()
+    protected override void ShowMessage(Action action = null)
     {
-        StartCoroutine(AwaitEnemyTurn());
-        yield return null;
-    }
+        var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
+            transform.position + new Vector3(1.21f, 0.92f), Quaternion.identity, transform);
 
+        messageBox.Open(new []{ GetMessage()}, action );
+    }
+    
     public override IEnumerator AwaitEnemyTurn()
     {
         yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
         Soul.Instance.gameObject.SetActive(true);
         Soul.Instance.transform.position = BattleController.Instance.transform.position + new Vector3(0, -2);
         Soul.Instance.enabled = true;
+
+        yield return AwaitShowMessage();
         
         var attack = Instantiate(Resources.Load<CryingCatAttack_1>("Attacks/Crying Cat Attack 1"), transform);
         yield return new WaitForSeconds(6);
@@ -117,6 +120,9 @@ public sealed class CryingCat : Enemy
         if (Health <= 0)
         {
             SaveSystem.SetBool("IsDummyKilled", true);
+            
+            var enemiesKilled = SaveSystem.GetInt("EnemiesKilled");
+            SaveSystem.SetInt("EnemiesKilled", enemiesKilled + 1);
         }
         else
         {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public sealed class BattleController : MonoBehaviour
@@ -89,6 +90,7 @@ public sealed class BattleController : MonoBehaviour
     public IReadOnlyCollection<Enemy> GetEnemies => _enemies;
     public string BattleApproachMessage;
     private AudioClip _previousMusic;
+    private bool _isRun;
     public bool IsGetWriteProcessing => _writeCoroutine != null;
 
     private void Awake()
@@ -114,7 +116,9 @@ public sealed class BattleController : MonoBehaviour
         for (var index = 0; index < battleDataData.Enemies.Length; index++)
         {
             var prefab = battleDataData.Enemies[index];
-            var enemy = Instantiate(prefab, transform.position + new Vector3(0, prefab.transform.position.y), Quaternion.identity, transform);
+            var enemy = Instantiate(prefab, transform.position + new Vector3(
+                index switch {0 => 0, 1 => -6.34f, 2 => 6.34f}, prefab.transform.position.y), 
+                Quaternion.identity, transform);
             enemy.Init(this);
             _enemies[index] = enemy;
         }
@@ -170,6 +174,7 @@ public sealed class BattleController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     _isMainMenu = false;
+                    StopWrite();
                     
                     for (int i = 0; i < _battleButtons.Length; i++)
                     {
@@ -193,9 +198,13 @@ public sealed class BattleController : MonoBehaviour
 
                             for (int i = 0; i < _enemies.Length; i++)
                             {
+                                if (_enemies[i].IsSpare || _enemies[i].IsDead)
+                                    continue;
+                                
                                 var _enemySelectLine = Instantiate(Resources.Load<EnemySelectLine>("Enemy Select Line"),
-                                     transform.position + new Vector3(-5.49f, -0.75f, 0), Quaternion.identity, _fightSelect.transform);
-                                _enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth);
+                                     transform.position + new Vector3(-5.49f, i switch { 0 => -0.75f, 1 => -1.46f, 2 => -2.191f }, 0), Quaternion.identity, _fightSelect.transform);
+                                _enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth, 
+                                    _enemies[i].IsYellowName && !_enemies[i].IsSpare && !_enemies[i].IsDead);
                                 _fightSelectLines.Add(_enemySelectLine);
                             }
                             break;
@@ -205,9 +214,14 @@ public sealed class BattleController : MonoBehaviour
 
                             for (int i = 0; i < _enemies.Length; i++)
                             {
+                                if (_enemies[i].IsSpare || _enemies[i].IsDead)
+                                    continue;
+                                
                                 var enemySelectLine = Instantiate(Resources.Load<EnemySelectLine>("Enemy Select Line"),
-                                    transform.position + new Vector3(-5.49f, -0.75f, 0), Quaternion.identity, _actSelect.transform);
-                                enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth);
+                                    transform.position + new Vector3(-5.49f, 
+                                        i switch { 0 => -0.75f, 1 => -1.46f, 2 => -2.191f }, 0), Quaternion.identity, _actSelect.transform);
+                                enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth, 
+                                    _enemies[i].IsYellowName && !_enemies[i].IsSpare && !_enemies[i].IsDead);
                                 _actSelectLines.Add(enemySelectLine);
                             }
                             break;
@@ -240,7 +254,7 @@ public sealed class BattleController : MonoBehaviour
                             _mercySelect.SetActive(true);
                             var hireLine = Instantiate(Resources.Load<SelectLine>("Select Line"),
                                 transform.position + new Vector3(-5.49f, -0.75f), Quaternion.identity, _mercySelect.transform);
-                            hireLine.Init("Hire", _enemies[0].IsYellowName);
+                            hireLine.Init("Hire", _enemies.Any(enemy => enemy.IsYellowName && !enemy.IsSpare));
                             _mercySelectLines.Add(hireLine);
 
                             if (_enemies[0].IsRun)
@@ -271,8 +285,8 @@ public sealed class BattleController : MonoBehaviour
                 {
                     _indexFightSelect += 1;
                     
-                    if (_indexFightSelect > _fightSelectLines.Count - 1)
-                        _indexFightSelect = _fightSelectLines.Count - 1;
+                    if (_indexFightSelect > _enemies.Length - 1)
+                        _indexFightSelect = _enemies.Length - 1;
                 }
                 
                 Soul.Instance.transform.position = transform.position + _indexFightSelect switch
@@ -301,6 +315,9 @@ public sealed class BattleController : MonoBehaviour
                 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    if (_enemies[_indexFightSelect].IsSpare || _enemies[_indexFightSelect].IsDead)
+                        return;
+                    
                     _isFightSelect = false;
                     _fightSelect.SetActive(false);
                     _sfxMenuSelect.Play();
@@ -311,6 +328,7 @@ public sealed class BattleController : MonoBehaviour
                     }
 
                     _fightSelectLines = new List<EnemySelectLine>();
+ 
                     StartCoroutine(AwaitFightIndicator());
                     return;
                 }
@@ -330,8 +348,8 @@ public sealed class BattleController : MonoBehaviour
                 {
                     _indexActSelect += 1;
                     
-                    if (_indexActSelect > _actSelectLines.Count - 1)
-                        _indexActSelect = _actSelectLines.Count - 1;
+                    if (_indexActSelect > _enemies.Length - 1)
+                        _indexActSelect = _enemies.Length - 1;
                 }
                 
                 Soul.Instance.transform.position = transform.position + _indexActSelect switch
@@ -360,6 +378,9 @@ public sealed class BattleController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    if (_enemies[_indexActSelect].IsSpare || _enemies[_indexActSelect].IsDead)
+                        return;
+                    
                     _isActSelect = false;
                     _isAct = true;
                     _actSelect.SetActive(false);
@@ -466,10 +487,13 @@ public sealed class BattleController : MonoBehaviour
                     
                     for (int i = 0; i < _enemies.Length; i++)
                     {
-                        var _enemySelectLine = Instantiate(Resources.Load<EnemySelectLine>("Enemy Select Line"),
-                            transform.position + new Vector3(-5.49f, -0.75f, 0), Quaternion.identity, _actSelect.transform);
-                        _enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth);
-                        _actSelectLines.Add(_enemySelectLine);
+                        if (_enemies[i].IsSpare || _enemies[i].IsDead)
+                            continue;
+                        
+                        var enemySelectLine = Instantiate(Resources.Load<EnemySelectLine>("Enemy Select Line"),
+                            transform.position + new Vector3(-5.49f, i switch { 0 => -0.75f, 1 => -1.46f, 2 => -2.191f }, 0), Quaternion.identity, _actSelect.transform);
+                        enemySelectLine.Init(_enemies[i].Name, _enemies[i].Health, _enemies[i].MaxHealth, _enemies[i].IsYellowName && !_enemies[i].IsSpare);
+                        _actSelectLines.Add(enemySelectLine);
                     }
                     
                     return;
@@ -743,14 +767,13 @@ public sealed class BattleController : MonoBehaviour
 
                     if (_indexMercySelect == 0)
                     {
-                        
+                        StartCoroutine(AwaitMercy());
                     }
                     else
                     {
-                        
+                        StartCoroutine(AwaitRun());
                     }
                     
-                    StartCoroutine(AwaitMercy());
                     return;
                 }
             }
@@ -787,6 +810,7 @@ public sealed class BattleController : MonoBehaviour
 
     private IEnumerator AwaitFightIndicator()
     {
+        _isTurnPlayer = false;
         _isFightIndicator = true;
         _fightIndicator.SetActive(true);
         Soul.Instance.gameObject.SetActive(false);
@@ -812,17 +836,21 @@ public sealed class BattleController : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         _damageSFX.Play();
         var damage = _enemies[_indexFightSelect].IsYellowName ? _enemies[_indexFightSelect].Health : 3;
+        var damageEffect = Instantiate(Resources.Load<DamageEffect>("Damage Effect"), 
+            new Vector3(_enemies[_indexFightSelect].transform.position.x, transform.position.y + 5.01f), 
+            Quaternion.identity, transform);
+        damageEffect.Init((Mathf.Min(damage, _enemies[_indexFightSelect].Health)).ToString(), _enemies[_indexFightSelect].Health - damage, _enemies[_indexFightSelect].MaxHealth);
         StartCoroutine(_enemies[_indexFightSelect].AwaitDamage(damage));
-        var damageEffect = Instantiate(Resources.Load<DamageEffect>("Damage Effect"), transform.position + new Vector3(0, 5.01f), Quaternion.identity, transform);
-        damageEffect.Init(damage.ToString(), _enemies[_indexFightSelect].Health, _enemies[_indexFightSelect].MaxHealth);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Destroy(damageEffect.gameObject);
         _indicatorStick.GetComponent<Animator>().SetBool("IsActivate", false);
         _fightIndicator.SetActive(false);
         _isFightIndicator = false;
-        _isTurnPlayer = false;
 
-        if (_enemies[_indexFightSelect].Health > 0)
+        // if (_enemies[_indexFightSelect].IsDead)
+        //     yield return new WaitForSeconds(1);
+        
+        if (_enemies.Any(enemy => enemy.Health > 0))
             StartCoroutine(_enemies[_indexFightSelect].AwaitFight());
         else
             StartCoroutine(AwaitEndBattle());
@@ -838,13 +866,17 @@ public sealed class BattleController : MonoBehaviour
 
     private IEnumerator AwaitPlayerTurn()
     {
+        Soul.Instance.gameObject.SetActive(false);
         yield return _frame.AwaitUpgradeSize(4.8f, 1.15f);
-        _isTurnPlayer = true;
         WriteStartMessage();
+        _isTurnPlayer = true;
+        yield return null;
+        Soul.Instance.gameObject.SetActive(true);
     }
 
     private IEnumerator AwaitItem(string itemCellID)
     {
+        _isTurnPlayer = false;
         var itemName = SaveSystem.GetString(itemCellID);
 
         if (itemCellID != string.Empty)
@@ -867,34 +899,71 @@ public sealed class BattleController : MonoBehaviour
             StopWrite();
         }
         
-        yield return _enemies[_indexFightSelect].AwaitItem(itemName);
+        yield return _enemies[_indexItemSelect].AwaitItem(itemName);
     }
 
     private IEnumerator AwaitAct(int act)
     {
-        yield return _enemies[_indexFightSelect].AwaitAct(act);
+        _isTurnPlayer = false;
+        yield return _enemies[_indexActSelect].AwaitAct(act);
     }
 
     private IEnumerator AwaitMercy()
     {
-        var isYellowName = false;
+        _isTurnPlayer = false;
+        
+        Soul.Instance.gameObject.SetActive(false);
+        var counterWrapper = new[] { 0 };
+        
+        foreach (var enemy in _enemies)
+        {
+            if (enemy.IsYellowName && !enemy.IsSpare)
+            {
+                counterWrapper[0]++;
+                enemy.StartCoroutine(enemy.AwaitSpare(() => counterWrapper[0]--));
+            }
+        }
+        
+        yield return new WaitUntil(() => counterWrapper[0] == 0);
+        
+        var isAllSpared = true;
 
         foreach (var enemy in _enemies)
         {
-            if (enemy.IsYellowName)
-                isYellowName = true;
+            if (!enemy.IsSpare)
+                isAllSpared = false;
         }
         
-        if (isYellowName)
+        if (isAllSpared)
             StartCoroutine(AwaitEndBattle());
-        
-        yield return _enemies[_indexFightSelect].AwaitMercy();
+        else
+            yield return _enemies[0].AwaitMercy();
+    }
+
+    private IEnumerator AwaitRun()
+    {
+        _isTurnPlayer = false;
+        _isRun = true;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(AwaitEndBattle());
     }
 
     public IEnumerator AwaitEndBattle()
     {
+        Soul.Instance.gameObject.SetActive(false);
+        
         _spareSFX.Play();
-        BattleApproachMessage = $"YOU WON!\nYou earned {0} Australium.";
+        var australium = 0;
+
+        if (!_isRun)
+        {
+            foreach (var enemy in _enemies)
+            {
+                australium += enemy.Australium;
+            }
+        }
+
+        BattleApproachMessage = $"YOU WON!\nYou earned {australium} Australium.";
 
         WriteStartMessage();
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));

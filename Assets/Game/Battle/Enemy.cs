@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -20,12 +21,33 @@ public abstract class Enemy : MonoBehaviour
     protected int _sparemeter = 10;
     protected int _actchoice;
     protected BattleController _battleController;
+    public bool IsSpare { private set; get; }
+    public bool IsDead { private set; get; }
 
     public abstract void Init(BattleController battleController);
 
+    [ContextMenu("Damage")]
+    public void DebugDamage()
+    {
+        Health = 1;
+    }
+    
+    [ContextMenu("Spare")]
+    public void DebugSpare()
+    {
+        IsYellowName = true;
+    }
+    
     public virtual IEnumerator AwaitDamage(int damage)
     {
         Health -=  damage;
+
+        if (Health <= 0)
+            IsDead = true;
+        
+        if (Health < 0)
+            Health = 0;
+        
         GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
         yield return new WaitForSeconds(2);
         
@@ -47,9 +69,14 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public abstract IEnumerator AwaitFight();
+    public virtual IEnumerator AwaitFight()
+    {
+        StartCoroutine(AwaitEnemyTurn());
+        yield return null;
+    }
 
     public abstract IEnumerator AwaitAct(int act);
+
 
     public virtual IEnumerator AwaitEnemyTurn()
     {
@@ -65,44 +92,34 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual IEnumerator AwaitItem(string itemName)
     {
-        Soul.Instance.gameObject.SetActive(false);
-        yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
-        Soul.Instance.gameObject.SetActive(true);
-        Soul.Instance.transform.position = transform.position + new Vector3(0, -2);
-        Soul.Instance.enabled = true;
-
         StartCoroutine(AwaitEnemyTurn());
+        yield return null;
+    }
+
+    public IEnumerator AwaitSpare(Action action)
+    {
+        Instantiate(Resources.Load<Animator>("Spare Animation"),
+            transform.position, Quaternion.identity, transform);
+            
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            
+        var delta = 0.5f;
+
+        while (delta > 0f)
+        {
+            delta -= Time.deltaTime * 2;
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, delta);
+            yield return null;
+        }
+
+        IsSpare = true;
+        action.Invoke();
     }
 
     public virtual IEnumerator AwaitMercy()
     {
-        Soul.Instance.gameObject.SetActive(false);
-
-        if (IsYellowName)
-        {
-            Instantiate(Resources.Load<Animator>("Spare Animation"),
-                transform.position, Quaternion.identity, transform);
-            
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            
-            var delta = 0.5f;
-
-            while (delta > 0f)
-            {
-                delta -= Time.deltaTime * 2;
-                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, delta);
-                yield return null;
-            }
-            
-            yield break;
-        }
-
-        yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
-        Soul.Instance.gameObject.SetActive(true);
-        Soul.Instance.transform.position = transform.position + new Vector3(0, -2);
-        Soul.Instance.enabled = true;
-
         StartCoroutine(AwaitEnemyTurn());
+        yield return null;
     }
     
     public abstract void End();
@@ -113,28 +130,45 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void PlayerTurn();
     protected abstract string GetMessage();
 
-    private void ShowMessage()
+    protected virtual void ShowMessage(Action action = null)
     {
         var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
             transform.position + new Vector3(1.21f, 4.54f), Quaternion.identity, transform);
 
-        messageBox.Open(new []{GetMessage()}, () => { });
+        messageBox.Open(new []{ GetMessage()}, action );
     }
 
     protected IEnumerator AwaitShowMessage()
     {
+        var selectedEnemy = this;
+
+        if (selectedEnemy.IsDead || selectedEnemy.IsSpare)
+        {
+            selectedEnemy = null;
+        }
+        
         var isEnd = false;
 
         foreach (var enemy in _battleController.GetEnemies)
         {
-            if (enemy != this)
+            if (enemy != selectedEnemy && !enemy.IsSpare && !enemy.IsDead)
+            {
+                if (selectedEnemy == null)
+                {
+                    selectedEnemy = enemy;
+                    continue;
+                }
+                
                 enemy.ShowMessage();
+            }
         }
         
-        var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
-            transform.position + new Vector3(1.21f, 4.54f), Quaternion.identity, transform);
-
-        messageBox.Open(new []{GetMessage()}, () => isEnd = true);
+        selectedEnemy.ShowMessage(() => isEnd = true);
         yield return new WaitUntil(() => isEnd);
+
+        foreach (var messageEnemyBattle in FindObjectsByType<MessageEnemyBattle>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        {
+            Destroy(messageEnemyBattle.gameObject);
+        }
     }
 } 
