@@ -105,8 +105,10 @@ public sealed class DialogueWindow : MonoBehaviour
 
                 if (!_isSkip)
                 {
-                    _sfx.Play();
-                    yield return new WaitForSeconds(0.1f); // replicas[_currentReplicaIndex].Speed
+                    if (!_sfx.isPlaying && i % 3 == 0)
+                        _sfx.Play();
+                    
+                    yield return new WaitForSeconds(0.05f); // replicas[_currentReplicaIndex].Speed
                 }
             }
             

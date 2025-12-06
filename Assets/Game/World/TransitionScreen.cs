@@ -23,7 +23,7 @@ public sealed class TransitionScreen : MonoBehaviour
         
         while (delta < 1f)
         {
-            delta += Time.deltaTime;
+            delta += Time.deltaTime * 2;
             spriteRenderer.color = new Color(0, 0, 0, delta);
             yield return null;
         }
@@ -57,7 +57,7 @@ public sealed class TransitionScreen : MonoBehaviour
         
         while (delta > 0f)
         {
-            delta -= Time.deltaTime;
+            delta -= Time.deltaTime * 2;
             spriteRenderer.color = new Color(0, 0, 0, delta);
             yield return null;
         }

@@ -8,10 +8,14 @@ public sealed class SaveStar : MonoBehaviour, IUsable
     [SerializeField]
     private Replica[] _replicas;
 
+    [SerializeField]
+    private AudioSource _sfx;
+    
     public void Use()
     {
         Player.Instance.enabled = false;
-        
+
+        _sfx.Play();
         DialogueWindow.Open(_replicas, () =>
         {
             Player.Instance.enabled = false;

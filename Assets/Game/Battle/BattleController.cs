@@ -110,7 +110,7 @@ public sealed class BattleController : MonoBehaviour
         for (var index = 0; index < battleDataData.Enemies.Length; index++)
         {
             var prefab = battleDataData.Enemies[index];
-            var enemy = Instantiate(prefab, transform.position + new Vector3(), Quaternion.identity, transform);
+            var enemy = Instantiate(prefab, transform.position + new Vector3(0, prefab.transform.position.y), Quaternion.identity, transform);
             enemy.Init(this);
             _enemies[index] = enemy;
         }
@@ -261,8 +261,6 @@ public sealed class BattleController : MonoBehaviour
 
                     if (_indexFightSelect < 0)
                         _indexFightSelect = 0;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -271,8 +269,6 @@ public sealed class BattleController : MonoBehaviour
                     
                     if (_indexFightSelect > _fightSelectLines.Count - 1)
                         _indexFightSelect = _fightSelectLines.Count - 1;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 Soul.Instance.transform.position = transform.position + _indexFightSelect switch
@@ -324,8 +320,6 @@ public sealed class BattleController : MonoBehaviour
 
                     if (_indexActSelect < 0)
                         _indexActSelect = 0;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -334,8 +328,6 @@ public sealed class BattleController : MonoBehaviour
                     
                     if (_indexActSelect > _actSelectLines.Count - 1)
                         _indexActSelect = _actSelectLines.Count - 1;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 Soul.Instance.transform.position = transform.position + _indexActSelect switch
@@ -403,12 +395,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexAct == 2)
                     {
                         _indexAct = 0;
-                        _sfxSelect.Play();
                     }
                     else if (_indexAct == 3)
                     {
                         _indexAct = 1;
-                        _sfxSelect.Play();
                     }
                 }
                 
@@ -417,12 +407,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexAct == 0)
                     {
                         _indexAct = 2;
-                        _sfxSelect.Play();
                     }
                     else if (_indexAct == 1)
                     {
                         _indexAct = 3;
-                        _sfxSelect.Play();
                     }
                 }
 
@@ -431,12 +419,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexAct == 0)
                     {
                         _indexAct = 1;
-                        _sfxSelect.Play();
                     }
                     else if (_indexAct == 2)
                     {
                         _indexAct = 3;
-                        _sfxSelect.Play();
                     }
                 }
 
@@ -445,12 +431,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexAct == 1)
                     {
                         _indexAct = 0;
-                        _sfxSelect.Play();
                     }
                     else if (_indexAct == 3)
                     {
                         _indexAct = 2;
-                        _sfxSelect.Play();
                     }
                 }
 
@@ -514,12 +498,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexItemSelect == 2)
                     {
                         _indexItemSelect = 0;
-                        _sfxSelect.Play();
                     }
                     else if (_indexItemSelect == 3)
                     {
                         _indexItemSelect = 1;
-                        _sfxSelect.Play();
                     }
                 }
                 
@@ -528,12 +510,10 @@ public sealed class BattleController : MonoBehaviour
                     if (_indexItemSelect == 0)
                     {
                         _indexItemSelect = 2;
-                        _sfxSelect.Play();
                     }
                     else if (_indexItemSelect == 1)
                     {
                         _indexItemSelect = 3;
-                        _sfxSelect.Play();
                     }
                 }
                 
@@ -544,12 +524,10 @@ public sealed class BattleController : MonoBehaviour
                         if (_indexItemSelect == 0)
                         {
                             _indexItemSelect = 1;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 2)
                         {
                             _indexItemSelect = 3;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 1)
                         {
@@ -571,12 +549,10 @@ public sealed class BattleController : MonoBehaviour
                         if (_indexItemSelect == 0)
                         {
                             _indexItemSelect = 1;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 2)
                         {
                             _indexItemSelect = 3;
-                            _sfxSelect.Play();
                         }
                     }
                 }
@@ -588,12 +564,10 @@ public sealed class BattleController : MonoBehaviour
                         if (_indexItemSelect == 1)
                         {
                             _indexItemSelect = 0;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 3)
                         {
                             _indexItemSelect = 2;
-                            _sfxSelect.Play();
                         }
                     }
                     else
@@ -601,12 +575,10 @@ public sealed class BattleController : MonoBehaviour
                         if (_indexItemSelect == 1)
                         {
                             _indexItemSelect = 0;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 3)
                         {
                             _indexItemSelect = 2;
-                            _sfxSelect.Play();
                         }
                         else if (_indexItemSelect == 0)
                         {
@@ -720,8 +692,6 @@ public sealed class BattleController : MonoBehaviour
 
                     if (_indexMercySelect < 0)
                         _indexMercySelect = 0;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -730,8 +700,6 @@ public sealed class BattleController : MonoBehaviour
                     
                     if (_indexMercySelect > _mercySelectLines.Count - 1)
                         _indexMercySelect = _mercySelectLines.Count - 1;
-                    else
-                        _sfxSelect.Play();
                 }
                 
                 Soul.Instance.transform.position = transform.position + _indexMercySelect switch
@@ -803,9 +771,11 @@ public sealed class BattleController : MonoBehaviour
         
         for (int i = 0; i < BattleApproachMessage.Length; i++)
         {
-            _writeSFX.Play();
+            if (!_writeSFX.isPlaying)
+                _writeSFX.Play();
+            
             _line.text += BattleApproachMessage[i];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
 
         _writeCoroutine = null;
@@ -856,8 +826,8 @@ public sealed class BattleController : MonoBehaviour
 
     public void PlayerTurn()
     {
-        _isTurnPlayer = true;
         _isMainMenu = true;
+        _indexAct = 0;
         Soul.Instance.enabled = false;
         StartCoroutine(AwaitPlayerTurn());
     }
@@ -865,6 +835,7 @@ public sealed class BattleController : MonoBehaviour
     private IEnumerator AwaitPlayerTurn()
     {
         yield return _frame.AwaitUpgradeSize(4.8f, 1.15f);
+        _isTurnPlayer = true;
         WriteStartMessage();
     }
 

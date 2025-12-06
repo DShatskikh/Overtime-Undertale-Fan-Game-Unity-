@@ -7,7 +7,7 @@ public sealed class TestStartBattle : MonoBehaviour
 
     private void Start()
     {
-        if (!FindAnyObjectByType<StartBattleAnimation>())
+        if (FindAnyObjectByType<StartBattleAnimation>())
             return;
         
         FindAnyObjectByType<BattleController>().Init(_battleData.Data);

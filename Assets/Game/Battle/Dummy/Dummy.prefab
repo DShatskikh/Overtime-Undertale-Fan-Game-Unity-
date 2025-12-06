@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Dummy
+  Quip: Sani made it himself!
+  Info: Doesn't attack or defend.
   Acts:
   - Talk
   - Compliment
@@ -112,3 +114,4 @@ MonoBehaviour:
   Defense: 0
   Attack: 0
   XP: 0
+  Australium: 0

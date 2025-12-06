@@ -1039,12 +1039,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737234075}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf2ec58ddb184ab190843ad8436a4f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _battleData: {fileID: 11400000, guid: 83be88ca3ec1ac344871240aefb6200f, type: 2}
+  _battleData: {fileID: 11400000, guid: 816f6963229a8604a81a44247f8640a2, type: 2}
 --- !u!1 &785897786
 GameObject:
   m_ObjectHideFlags: 0

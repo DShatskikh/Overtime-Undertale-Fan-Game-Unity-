@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 124926778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -67.05453, y: -1, z: -10}
+  m_LocalPosition: {x: -67.06516, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -458,11 +458,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075030770551960525, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: _transitionPointIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3075030770551960525, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: _transitionSceneIndex
-      value: 6
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5365132014369854732, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: m_LocalScale.x
@@ -574,7 +574,7 @@ MonoBehaviour:
 
       now is walk!'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'I know you''ve done that
@@ -584,14 +584,14 @@ MonoBehaviour:
       want to see now
       long'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'this distance will take
 
       you.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'For that, I''ve employed
@@ -600,14 +600,14 @@ MonoBehaviour:
 
       yellow line!'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'Just follow the line,
 
       how simple is that?'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'I will go ahead and
@@ -616,12 +616,12 @@ MonoBehaviour:
 
       to the end.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - Good luck!
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_happy_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   _saniAnimator: {fileID: 2119241293}
   _sparkles:
@@ -2183,6 +2183,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 74, y: -2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 26
+      m_TileSpriteIndex: 26
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -48, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -2857,7 +2867,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: fc84ea00b93a05040b0f69f4a0858236, type: 2}
   - m_RefCount: 10
     m_Data: {fileID: 11400000, guid: 9a9852947e3e891439ef4d46a9c3788c, type: 2}
-  - m_RefCount: 123
+  - m_RefCount: 124
     m_Data: {fileID: 11400000, guid: 63fef19776cd7ac40aafb83d1c2decab, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 6f5ab0b54ed83c74e9ade909d3f97332, type: 2}
@@ -2914,12 +2924,12 @@ Tilemap:
     m_Data: {fileID: -2019688973, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: -1303993869, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
-  - m_RefCount: 123
+  - m_RefCount: 124
     m_Data: {fileID: -1879655800, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -399390797, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 193
+  - m_RefCount: 194
     m_Data:
       e00: 1
       e01: 0
@@ -2938,7 +2948,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 193
+  - m_RefCount: 194
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -3360,7 +3370,7 @@ MonoBehaviour:
       back later.)'
     Icon: {fileID: 0}
     AnimationName: 
-    SFX: {fileID: 0}
+    SFX: {fileID: 8300000, guid: 537a6dea4e4503f4ba4e07be5ed1d04c, type: 3}
 --- !u!61 &864582398
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3531,6 +3541,26 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 10
       m_TileSpriteIndex: 10
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -71, y: -7, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 13
+      m_TileSpriteIndex: 13
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -70, y: -7, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 13
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -24404,7 +24434,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 10aa8a85ec0c6bd4e8946703a7dc1fb5, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 16e4da103ea174245aad1eeb2b79184e, type: 2}
-  - m_RefCount: 590
+  - m_RefCount: 592
     m_Data: {fileID: 11400000, guid: 27cbbbeb5277e634db7f9999a360219e, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 89e029087174e484abaec684b3a54ff7, type: 2}
@@ -24465,7 +24495,7 @@ Tilemap:
     m_Data: {fileID: -653735281, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 1181866685, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
-  - m_RefCount: 590
+  - m_RefCount: 592
     m_Data: {fileID: -2109905093, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -19162898, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
@@ -24500,7 +24530,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 1313880931, guid: 61b78eb84717a02438f9c7ef3e130632, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 2086
+  - m_RefCount: 2088
     m_Data:
       e00: 1
       e01: 0
@@ -24519,7 +24549,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2086
+  - m_RefCount: 2088
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -24662,8 +24692,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3075030770551960525, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
+      propertyPath: _transitionPointIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075030770551960525, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: _transitionSceneIndex
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5365132014369854732, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24937,7 +24971,7 @@ MonoBehaviour:
 
       worried there.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_worried_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'At least you''re here
@@ -24947,21 +24981,21 @@ MonoBehaviour:
       NOT fall off, so
       I will'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'mark that as a
 
       success in my chart.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'But this concludes our
 
       little training!'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'I am overall very proud
@@ -24971,7 +25005,7 @@ MonoBehaviour:
       that you feel
       so much'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_happy_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'better. For now though,
@@ -24981,7 +25015,7 @@ MonoBehaviour:
       leave for
       a bit.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_happy_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'I have something to
@@ -24990,13 +25024,13 @@ MonoBehaviour:
 
       please be so kind and'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_happy_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - wait here for me?
     - It will not take long.
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_happy_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'This hospital is old
@@ -25005,7 +25039,7 @@ MonoBehaviour:
 
       might hurt yourself'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_worried_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'easily if you walk here
@@ -25015,14 +25049,14 @@ MonoBehaviour:
       that has happened
       to'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_worried_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'you, I don''t want to
 
       risk that.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_worried_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'But if you need
@@ -25031,24 +25065,24 @@ MonoBehaviour:
 
       give me a call-'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - ...
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_blush_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - 'Actually, just wait
 
       here please.'
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   - Dialogues:
     - Bis gleich!
     Icon: {fileID: 0}
-    AnimationName: sani_face_normal
+    AnimationName: sani_normal_speak
     SFX: {fileID: 8300000, guid: 3499a38056ea61d4eafb9d0a312a40dc, type: 3}
   _saniAnimator: {fileID: 1741135562}
   _sparkles:

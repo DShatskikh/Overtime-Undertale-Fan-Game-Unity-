@@ -62,7 +62,7 @@ public sealed class Cutscene_Hospital_5 : MonoBehaviour
         while (_saniAnimator.transform.localPosition.x < 5.88f)
         {
             yield return null;
-            _saniAnimator.transform.position += new Vector3(Time.deltaTime * 2, 0);
+            _saniAnimator.transform.position += new Vector3(Time.deltaTime * 4, 0);
         }
 
         foreach (var sparkle in _sparkles)

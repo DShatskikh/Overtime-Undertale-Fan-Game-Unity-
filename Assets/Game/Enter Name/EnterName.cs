@@ -30,7 +30,7 @@ public sealed class EnterName : MonoBehaviour
     
     [SerializeField]
     private AudioSource _selectSFX;
-    
+
     private Coroutine _nameInputAnimationCoroutine;
     private Coroutine _enterNameCoroutine;
 
@@ -176,9 +176,10 @@ public sealed class EnterName : MonoBehaviour
                 if (isLeft)
                 {
                     _heart.SetActive(false);
-                    _monitorLine.SetActive(false);
                     GetComponent<Animator>().SetTrigger("Transition");
                     _nameTextMesh.color = new Color32(14, 2, 10, 255);
+                    var uiLayer = LayerMask.NameToLayer("UI");
+                    _nameTextMesh.gameObject.layer = uiLayer;
 
                     var delta = 1f;
                     
@@ -204,7 +205,17 @@ public sealed class EnterName : MonoBehaviour
                     
                     MusicPlayer.Instance.Stop();
                     _startGameSFX.Play();
-                    yield return new WaitForSeconds(6);
+                    
+                    delta = 1f;
+
+                    while (delta > 0)
+                    {
+                        delta -= Time.deltaTime / 3;
+                        _nameTextMesh.color = new Color32(14, 2, 10, (byte)(255 * delta));
+                        yield return null;
+                    }
+
+                    yield return new WaitForSeconds(3);
                     SaveSystem.SetString("PlayerName", _nameTextMesh.text);
                     SaveSystem.Save();
                     SceneManager.LoadScene(2);

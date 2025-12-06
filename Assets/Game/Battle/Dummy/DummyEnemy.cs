@@ -11,30 +11,6 @@ public sealed class DummyEnemy : Enemy
         Health = MaxHealth;
     }
     
-    public override IEnumerator AwaitDamage(int damage)
-    {
-        Health -=  damage;
-        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-        yield return new WaitForSeconds(2);
-        
-        if (Health > 0)
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
-        else
-        {
-            Instantiate(Resources.Load<Animator>("Dead Animation"), 
-                transform.position, Quaternion.identity, transform);
-            
-            var delta = 0.5f;
-
-            while (delta > 0f)
-            {
-                delta -= Time.deltaTime / 2;
-                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, delta);
-                yield return null;
-            }
-        }
-    }
-    
     public override IEnumerator AwaitFight()
     {
         Soul.Instance.gameObject.SetActive(false);
@@ -107,67 +83,14 @@ public sealed class DummyEnemy : Enemy
 
         PlayerTurn();
     }
-    
-    public override IEnumerator AwaitItem(string itemName)
-    {
-        Soul.Instance.gameObject.SetActive(false);
-        yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
-        Soul.Instance.gameObject.SetActive(true);
-        Soul.Instance.transform.position = transform.position + new Vector3(0, -2);
-        Soul.Instance.enabled = true;
 
-        yield return AwaitShowMessage();
-        
-        yield return new WaitForSeconds(6);
-
-        PlayerTurn();
-    }
-    
-    public override IEnumerator AwaitMercy()
-    {
-        Soul.Instance.gameObject.SetActive(false);
-
-        if (IsYellowName)
-        {
-            Instantiate(Resources.Load<Animator>("Spare Animation"),
-                transform.position, Quaternion.identity, transform);
-            
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            
-            var delta = 0.5f;
-
-            while (delta > 0f)
-            {
-                delta -= Time.deltaTime * 2;
-                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, delta);
-                yield return null;
-            }
-            
-            yield break;
-        }
-
-        yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
-        Soul.Instance.gameObject.SetActive(true);
-        Soul.Instance.transform.position = transform.position + new Vector3(0, -2);
-        Soul.Instance.enabled = true;
-
-        yield return AwaitShowMessage();
-        
-        yield return new WaitForSeconds(6);
-
-        PlayerTurn();
-    }
-    
-    protected override string GetBaseInspected()
-    {
-        return $"* Dummy ATK {Attack} DEF {Defense}\n* Sani made it himself!\n* Doesn't attack or defend.";
-    }
-    
     protected override void PlayerTurn()
     {
         if (_sparemeter <= 0 || Health < 2)
         {
-            if (Health < 2)
+            if (Health <= 0)
+                _battleController.BattleApproachMessage = "* Dummy has been shot. Ow.";
+            else if (Health < 2)
                 _battleController.BattleApproachMessage = "* The Dummy's health\n  is low, which means\n  he can be spared.";
             else
                 _battleController.BattleApproachMessage = "* Dummy can now be \"hired\".";
@@ -203,6 +126,11 @@ public sealed class DummyEnemy : Enemy
 
     public override void End()
     {
+        if (Health <= 0)
+        {
+            SaveSystem.SetBool("IsDummyKilled", true);
+        }
+        
         SaveSystem.SetInt("Cutscene_Hospital", 4);
     }
 }

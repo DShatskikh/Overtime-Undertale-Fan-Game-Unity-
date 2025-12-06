@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1581a22ad16b4661a965a5532626b435, type: 3}
+  m_Name: Crying Cat
+  m_EditorClassIdentifier: 
+  Data:
+    Enemies:
+    - {fileID: -5794157985841635336, guid: 2a8b7f43f20b01d458ba3a466dbd9956, type: 3}
+    Background: {fileID: 6830096989059110931, guid: a39ffe9ee0854004b80d11bb95b61558, type: 3}
+    Music: {fileID: 8300000, guid: 1fa0ead92f6d3cb429e02f5da2aa82ad, type: 3}
