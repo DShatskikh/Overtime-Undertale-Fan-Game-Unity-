@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Game/World/Hospice/Hospice Corridor.unity
     guid: e54c21e7b7521c748a567c6a7c0672ed
   - enabled: 1
-    path: Assets/Game/World/Hospice/Puzzle_1/Puzzle_1.unity
+    path: Assets/Game/World/Hospice/Puzzle 1/Puzzle_1.unity
     guid: cc2e127ad44318b4887e4a3687b0d6f2
   - enabled: 1
     path: Assets/Game/World/EndDemo.unity
@@ -47,6 +47,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/World/Hospice/Hospice Room 1.unity
     guid: 50a848b4ea13136428d48805b47eb14b
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Clue 1.unity
+    guid: 97f09099ea29e0947a577e110eaaa04a
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Room 2.unity
+    guid: 4023d5383ee290945ac068f400d31f2b
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 2/Hospice Puzzle 2.unity
+    guid: 23e8f145b9039a44686c1f8cf9b0342e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -26,7 +26,7 @@ public sealed class CryingCat : Enemy
     {
         yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
         Soul.Instance.gameObject.SetActive(true);
-        Soul.Instance.transform.position = transform.position + new Vector3(0, -2);
+        Soul.Instance.transform.position = BattleController.Instance.transform.position + new Vector3(0, -2);
         Soul.Instance.enabled = true;
         
         var attack = Instantiate(Resources.Load<CryingCatAttack_1>("Attacks/Crying Cat Attack 1"), transform);

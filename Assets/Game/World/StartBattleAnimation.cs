@@ -30,6 +30,8 @@ public sealed class StartBattleAnimation : MonoBehaviour
 
     private IEnumerator AwaitAnimation()
     {
+        Player.Instance.enabled = false;
+        
         _soul = Instantiate(Resources.Load<Soul>("Soul"));
         _soul.enabled = false;
         _soul.transform.position = Player.Instance.transform.position;

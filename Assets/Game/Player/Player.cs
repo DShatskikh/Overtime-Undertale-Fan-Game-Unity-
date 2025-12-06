@@ -1,16 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public sealed class Player : MonoBehaviour
 {
     private const float SPEED = 3;
     private const float RUN_SPEED = 5;
+
+    [SerializeField]
+    private GameObject _warning;
     
     private Rigidbody2D _rigidbody;
     private Animator _animator;
     private Vector2 _previousPosition;
+
     public static Player Instance { get; private set; }
     public Vector2 GetDirection => new(_animator.GetFloat("Horizontal"), _animator.GetFloat("Vertical"));
+    public bool IsRunning { get; private set; }
 
     private void Awake()
     {
@@ -28,6 +32,7 @@ public sealed class Player : MonoBehaviour
     private void Update()
     {
         var isRun = Input.GetKey(KeyCode.LeftShift);
+        IsRunning = isRun;
         var moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (moveDirection.magnitude != 0)
@@ -58,6 +63,11 @@ public sealed class Player : MonoBehaviour
         _previousPosition = _rigidbody.position;
     }
 
+    public void ToggleWarning(bool isWarning)
+    {
+        _warning.SetActive(isWarning);
+    }
+    
     public void SetDirection(Vector2 direction)
     {
         _animator.SetFloat("Horizontal", direction.x);

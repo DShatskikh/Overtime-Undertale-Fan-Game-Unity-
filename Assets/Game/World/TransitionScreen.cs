@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public sealed class TransitionScreen : MonoBehaviour
 {
+
     public static void Transition(int indexScene, int pointIndex = -1)
     {
         var prefab = Resources.Load<TransitionScreen>("Transition Screen");
@@ -36,7 +38,6 @@ public sealed class TransitionScreen : MonoBehaviour
             yield break;
         }
         
-        transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y);
         Player.Instance.enabled = false;
 
         if (pointIndex != -1)
@@ -46,13 +47,23 @@ public sealed class TransitionScreen : MonoBehaviour
                 if (transitionPoint.GetIndex == pointIndex)
                 {
                     Player.Instance.transform.position = transitionPoint.transform.position;
+                    transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y);
                     break;
                 }
             }
         }
         
         Player.Instance.SetDirection(direction);
-        
+
+        if (Constants.EncounterHospitalScenes.Contains(indexScene))
+        {
+            EncounterMonsterSystem.Instance.ChangeZone(ZoneEnum.Hospital);   
+        }
+        else
+        {
+            EncounterMonsterSystem.Instance.ChangeZone(ZoneEnum.None);   
+        }
+
         delta = 1f;
         
         while (delta > 0f)

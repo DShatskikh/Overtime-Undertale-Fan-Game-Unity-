@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3203662928932165933}
   - component: {fileID: 4595364545541035268}
   - component: {fileID: 4841725477789999841}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crying Cat Shell 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

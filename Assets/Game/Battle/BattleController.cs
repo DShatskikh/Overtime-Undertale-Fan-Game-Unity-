@@ -4,6 +4,8 @@ using UnityEngine;
 
 public sealed class BattleController : MonoBehaviour
 {
+    public static BattleController Instance { get; private set; }
+
     [SerializeField]
     private Enemy[] _enemies;
 
@@ -91,6 +93,8 @@ public sealed class BattleController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         if (Player.Instance)
             transform.position = Player.Instance.transform.position;
 

@@ -6,10 +6,17 @@ public sealed class Soul : MonoBehaviour
 {
     [SerializeField]
     private AudioSource _healSFX;
+
+    [SerializeField]
+    private AudioSource _damageSFX;
+    
+    [SerializeField]
+    private float _speed;
     
     private float _health;
     private float _maxHealth;
     private Animator _animator;
+    private Rigidbody2D _rigidbody;
     private bool _isInvulnerability;
     private bool _isUber;
     public static Soul Instance { get; private set; }
@@ -22,6 +29,7 @@ public sealed class Soul : MonoBehaviour
     {
         Instance = this;
         _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -31,9 +39,9 @@ public sealed class Soul : MonoBehaviour
         ChangeHealth?.Invoke(_health, _maxHealth);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * Time.deltaTime;
+        _rigidbody.linearVelocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * _speed;
     }
 
     public void Damage(float damage)
@@ -44,6 +52,7 @@ public sealed class Soul : MonoBehaviour
         if (_isUber)
             return;
         
+        _damageSFX.Play();
         _health -= damage;
         _animator.SetTrigger("Damage");
         StartCoroutine(AwaitInvulnerability());
