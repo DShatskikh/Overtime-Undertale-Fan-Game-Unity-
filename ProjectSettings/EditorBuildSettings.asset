@@ -56,6 +56,48 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/World/Hospice/Puzzle 2/Hospice Puzzle 2.unity
     guid: 23e8f145b9039a44686c1f8cf9b0342e
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Zepheniah.unity
+    guid: 8bb4b6b72fbe72745a78121527298474
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 3/Hospice Puzzle 3.unity
+    guid: 8a47bb365acc99243844c99be997f7a2
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 3/Hospice Puzzle 3 Room 1.unity
+    guid: 337fca5787c657d4290aa17561f7fb9a
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 3/Hospice Puzzle 3 Room 2.unity
+    guid: 7fd171400dbd06d41ae3fc467e1e05a6
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 3/Hospice Puzzle 3 Room 3.unity
+    guid: d53fad6c9a31ec84fb7dd8497bcd556f
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Puzzle 3/Hospice Puzzle 3 Room 4.unity
+    guid: 30bbacc455e9731408958df61acf04a1
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Intermission.unity
+    guid: 002ac9da6788c13438b2800a7923d0e2
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Garden.unity
+    guid: c369fd3e9ffa18942b673eb0e842c918
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hall/Hospice Main Hall.unity
+    guid: fe1bf4cc078763a4ab79c157a9b9a90b
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hall/Hospice Halway.unity
+    guid: 475f9e4f9aeed174c8c0e3255538b5a8
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hall/Hospice Sani Room.unity
+    guid: 75acd9ebffc421945bd7ec49ecd9a145
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hall/Hospice Store Room.unity
+    guid: fc7188d4f2bb6bb45919bb28434140d5
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hall/Hospice Surgery.unity
+    guid: 113a220e3325f694b942a7a39ba3fc06
+  - enabled: 1
+    path: Assets/Game/World/Hospice/Hospice Long Corridor.unity
+    guid: bed2b64f9438fd643a3a3411327db5f1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
   m_UseUCBPForAssetBundles: 0

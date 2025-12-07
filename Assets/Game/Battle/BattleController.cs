@@ -815,6 +815,7 @@ public sealed class BattleController : MonoBehaviour
         _fightIndicator.SetActive(true);
         Soul.Instance.gameObject.SetActive(false);
         _indicatorStick.localPosition = new Vector3(-6.72f, _indicatorStick.localPosition.y);
+        _gunAnimator.transform.position = new Vector3(_enemies[_indexFightSelect].transform.position.x + 4, _gunAnimator.transform.position.y);
         yield return null;
         
         while (_indicatorStick.localPosition.x < 8.32f)

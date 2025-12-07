@@ -3,17 +3,42 @@ using UnityEngine;
 
 public sealed class Menu : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _itemPanel;
-    
+    [Header("Node")]
     [SerializeField]
     private GameObject _nodePanel;
+    
+    [SerializeField]
+    private TextMesh _nameLabel;
+    
+    [SerializeField]
+    private TextMesh _lvLabel;
+    
+    [SerializeField]
+    private TextMesh _hpLabel;
+    
+    [SerializeField]
+    private TextMesh _killedLabel;
+
+    [SerializeField]
+    private TextMesh _hiredLabel;
+
+    [SerializeField]
+    private TextMesh _australiumLabel;
+
+    [SerializeField]
+    private TextMesh _timeLabel;
+
+    [SerializeField]
+    private GameObject _itemPanel;
 
     [SerializeField]
     private AudioSource _selectSFX;
     
     [SerializeField]
     private AudioSource _menuSelectSFX;
+
+    [SerializeField]
+    private TextMesh[] _itemLabels;
     
     [SerializeField]
     private Replica[] _ceilReplicas;
@@ -23,19 +48,29 @@ public sealed class Menu : MonoBehaviour
     private int _mainMenuSelected;
     private bool _isItemMenuSelected;
     private int _itemMenuSelected;
+    private bool _isItemDownMenuSelected;
+    private int _itemDownMenuSelected;
     private bool _isNodeMenuSelected;
     private bool _nodeMenuSelected;
 
     private void Start()
     {
         _soul = Instantiate(Resources.Load<Soul>("Soul"), transform);
-        _soul.transform.localPosition = new Vector3(-3.04f, 1.492f);
+        _soul.transform.localPosition = new Vector3(-3.04f + 0.592f, 1.492f);
         _soul.enabled = false;
-    }
-    
-    private void OnDestroy()
-    {
-        //Destroy(_soul.gameObject);
+
+        for (int i = 0; i < _itemLabels.Length; i++)
+        {
+            _itemLabels[i].text = SaveSystem.GetString($"Item_{i}");
+        }
+
+        _nameLabel.text = "\"Denis\"";
+        _lvLabel.text = $"LV {1}";
+        _hpLabel.text = $"HP {20}/{20}";
+        _killedLabel.text = $"KILLED {0}";
+        _hiredLabel.text = $"HIRRED {0}";
+        _australiumLabel.text = $"AUSTRALIUM {0}";
+        _timeLabel.text = $"{1}:{17}";
     }
 
     private void Update()
@@ -72,9 +107,9 @@ public sealed class Menu : MonoBehaviour
 
             _soul.transform.localPosition = _mainMenuSelected switch
             {
-                0 => new Vector3(-3.04f, 1.492f),
-                1 => new Vector3(-3.04f, 0.51f),
-                2 => new Vector3(-3.04f, -0.48f),
+                0 => new Vector3(-3.04f + 0.592f, 1.492f),
+                1 => new Vector3(-3.04f + 0.592f, 0.51f),
+                2 => new Vector3(-3.04f + 0.592f, -0.48f),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -111,18 +146,57 @@ public sealed class Menu : MonoBehaviour
             
             _soul.transform.localPosition = _itemMenuSelected switch
             {
-                0 => new Vector3(1.107f, 4.369f),
-                1 => new Vector3(1.107f, 4.369f - 0.86f),
-                2 => new Vector3(1.107f, 4.369f - 0.86f * 2),
-                3 => new Vector3(1.107f, 4.369f - 0.86f * 3),
-                4 => new Vector3(1.107f, 4.369f - 0.86f * 4),
-                5 => new Vector3(1.107f, 4.369f - 0.86f * 5),
-                6 => new Vector3(1.107f, 4.369f - 0.86f * 6),
-                7 => new Vector3(1.107f, -1.646f),
+                0 => new Vector3(1.107f + 0.592f, 4.369f),
+                1 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f),
+                2 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 2),
+                3 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 3),
+                4 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 4),
+                5 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 5),
+                6 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 6),
+                7 => new Vector3(1.107f + 0.592f, -1.646f),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-        
+
+        if (_isItemDownMenuSelected)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                _itemDownMenuSelected++;
+
+                if (_itemDownMenuSelected > 2)
+                {
+                    _itemDownMenuSelected = 2;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
+            }
+            
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                _itemDownMenuSelected--;
+
+                if (_itemDownMenuSelected < 0)
+                {
+                    _itemDownMenuSelected = 0;
+                }
+                else
+                {
+                    _selectSFX.Play();
+                }
+            }
+            
+            _soul.transform.localPosition = _itemDownMenuSelected switch
+            {
+                0 => new Vector3(1.107f + 0.592f, -3.218f),
+                1 => new Vector3(3.71f + 0.592f, -3.218f),
+                2 => new Vector3(6.84f + 0.592f, -3.218f),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_isMainMenuSelected)
@@ -153,6 +227,56 @@ public sealed class Menu : MonoBehaviour
                         break;
                 }
             }
+            else if (_isItemMenuSelected)
+            {
+                var itemName = SaveSystem.GetString($"Item_{_itemMenuSelected}");
+
+                if (itemName != string.Empty)
+                {
+                    _isItemMenuSelected = false;
+                    _isItemDownMenuSelected = true;
+                    
+                    _selectSFX.Play();
+                }
+                else
+                {
+                    Debug.Log("Предмет отсутствует");
+                }
+                    
+                return;
+            }
+            else if (_isItemDownMenuSelected)
+            {
+                var itemName = SaveSystem.GetString($"Item_{_itemMenuSelected}");
+
+                if (_itemDownMenuSelected == 0)
+                {
+                    Debug.Log("Использован предмет " + itemName);
+                    
+                    _soul.transform.position = transform.position + new Vector3(-3.03999996f + 0.592f,1.49199998f);
+                    _isItemDownMenuSelected = false;
+                    _itemPanel.SetActive(false);
+                    enabled = false;
+                    
+                    _itemLabels[_itemMenuSelected].text = string.Empty;
+                    SaveSystem.SetString($"Item_{_itemMenuSelected}", string.Empty);
+                    _selectSFX.Play();
+                    
+                    DialogueWindow.Open(_ceilReplicas, () =>
+                    {
+                        enabled = true;
+                        _isMainMenuSelected = true;
+                    }, false);
+                }
+                else if (_itemDownMenuSelected == 1)
+                {
+                    Debug.Log("Инфо " + itemName);
+                }
+                else
+                {
+                    Debug.Log("Предмет выкинут " + itemName);
+                }
+            }
         }
         
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -161,6 +285,7 @@ public sealed class Menu : MonoBehaviour
             {
                 _isItemMenuSelected = false;
                 _itemPanel.gameObject.SetActive(false);
+                _isMainMenuSelected = true;
             }
             
             if (_isNodeMenuSelected)
@@ -168,9 +293,14 @@ public sealed class Menu : MonoBehaviour
                 _isNodeMenuSelected = false;
                 _nodePanel.gameObject.SetActive(false);
                 _soul.gameObject.SetActive(true);
+                _isMainMenuSelected = true;
             }
-            
-            _isMainMenuSelected = true;
+
+            if (_isItemDownMenuSelected)
+            {
+                _isItemMenuSelected = true;
+                _isItemDownMenuSelected = false;
+            }
         }
         
         if (Input.GetKeyDown(KeyCode.LeftControl))

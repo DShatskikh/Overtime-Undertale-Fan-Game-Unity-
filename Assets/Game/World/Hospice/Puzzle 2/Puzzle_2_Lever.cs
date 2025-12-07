@@ -31,14 +31,7 @@ public sealed class Puzzle_2_Lever : MonoBehaviour, IUsable
         _sfx.Play();
         //_spriteRenderer.sprite = _activate;
 
-        if (_manager.IsCorrectCode)
-        {
-            _manager.Decied();
-        }
-        else
-        {
-            StartCoroutine(AwaitReset()); 
-        }
+        StartCoroutine(AwaitReset()); 
     }
 
     private IEnumerator AwaitReset()
@@ -46,7 +39,10 @@ public sealed class Puzzle_2_Lever : MonoBehaviour, IUsable
         var blackScreen = Instantiate(Resources.Load<BlackScreenAnimation>("Black Screen Animation"));
         yield return blackScreen.AwaitShowAnimation();
         yield return new WaitForSeconds(0.1f);
-        _manager.Reset();
+        
+        if (!_manager.IsCorrectCode)
+            _manager.Reset();
+        
         yield return blackScreen.AwaitHideAnimation();
     }
 }

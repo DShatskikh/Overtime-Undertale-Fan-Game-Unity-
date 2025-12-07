@@ -3,19 +3,19 @@
 public sealed class Puzzle_2 : MonoBehaviour
 {
     [SerializeField]
-    private PlateNumber[] _plates;
+    private string _correctCode;
 
     [SerializeField]
     private Puzzle_2_Lever _lever;
 
     [SerializeField]
-    private Sparkles[] _sparkles;
-    
+    private PlateNumber[] _plates;
+
     [SerializeField]
-    private string _correctCode;
-    
+    private Sparkles[] _sparkles;
+
     private string _code = string.Empty;
-    public bool CanStep => _code.Length < 3;
+    public bool CanStep => _code.Length < IsCorrectCode.ToString().Length;
     public bool IsCorrectCode => _code == _correctCode;
     public bool IsDecied { get; private set; }
 
@@ -38,6 +38,9 @@ public sealed class Puzzle_2 : MonoBehaviour
     public void Step(int number)
     {
         _code += number;
+
+        if (_code == _correctCode)
+            Decied();
     }
 
     public void Reset()
@@ -59,7 +62,7 @@ public sealed class Puzzle_2 : MonoBehaviour
 
         foreach (var plate in _plates)
         {
-            plate.Reset();
+            plate.Activate();
         }
 
         _code = _correctCode;

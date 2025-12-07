@@ -32,12 +32,17 @@ public sealed class PlateNumber : MonoBehaviour
             return;
 
         _manager.Step(_number);
+        Activate();
+    }
+
+    public void Activate()
+    {
         GetComponent<AudioSource>().Play();
         _spriteRenderer.sprite = _activateSprite;
         _label.color = Color.yellow;
         _label.transform.localPosition = new Vector3(0, 0.369f);
     }
-
+    
     public void Reset()
     {
         _spriteRenderer.sprite = _normalSprite;

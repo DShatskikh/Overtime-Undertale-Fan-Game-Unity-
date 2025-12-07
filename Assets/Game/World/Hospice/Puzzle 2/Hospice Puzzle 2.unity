@@ -414,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3075030770551960525, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: _transitionSceneIndex
-      value: 14
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 5365132014369854732, guid: 3f7a8d12021a54241b4ec5f30846a5f4, type: 3}
       propertyPath: m_LocalScale.x
@@ -6161,7 +6161,7 @@ MonoBehaviour:
   _sparkles:
   - {fileID: 1627389698}
   - {fileID: 2087756031}
-  _correctCode: 145
+  _correctCode: 427
 --- !u!1001 &1495718411
 PrefabInstance:
   m_ObjectHideFlags: 0

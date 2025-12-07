@@ -8,7 +8,12 @@ public sealed class CryingCat : Enemy
     public override void Init(BattleController battleController)
     {
         _battleController = battleController;
-        _battleController.BattleApproachMessage = "* The floor is wet from\n  Crying Cat's tears, which\n  makes you slip and fall.";
+        
+        if (BattleController.Instance.GetEnemies.Count == 1)
+        {
+            _battleController.BattleApproachMessage = "* The floor is wet from\n  Crying Cat's tears, which\n  makes you slip and fall.";
+        }
+        
         Health = MaxHealth;
         
         XP = Random.Range(3, 5);
