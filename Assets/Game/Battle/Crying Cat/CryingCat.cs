@@ -25,7 +25,7 @@ public sealed class CryingCat : Enemy
         var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
             transform.position + new Vector3(1.21f, 0.92f), Quaternion.identity, transform);
 
-        messageBox.Open(new []{ GetMessage()}, action );
+        messageBox.Open(GetMessage(), action );
     }
     
     public override IEnumerator AwaitEnemyTurn()
@@ -37,7 +37,8 @@ public sealed class CryingCat : Enemy
 
         yield return AwaitShowMessage();
         
-        var attack = Instantiate(Resources.Load<CryingCatAttack_1>("Attacks/Crying Cat Attack 1"), transform);
+        var attack = Instantiate(Resources.Load<CryingCatAttack_1>("Attacks/Crying Cat Attack 1"), 
+            new Vector3(BattleController.Instance.transform.position.x, transform.position.y), Quaternion.identity, transform);
         yield return new WaitForSeconds(6);
         
         Destroy(attack.gameObject);
@@ -60,20 +61,20 @@ public sealed class CryingCat : Enemy
         }
         else
         {
-            _sparemeter -= 5;
+            Sparemeter -= 5;
             _actchoice = 3;
 
-            if (_sparemeter == 5)
+            if (Sparemeter == 5)
             {
-                yield return _battleController.BattleApproachMessage = "* You reach out and pet\n  Crying Cat's head.";
+                _battleController.BattleApproachMessage = "* You reach out and pet\n  Crying Cat's head.";
             }
-            else if (_sparemeter == 0)
+            else if (Sparemeter == 0)
             {
-                yield return _battleController.BattleApproachMessage = "* You scratch Crying Cat\n  behind the ears.";
+                _battleController.BattleApproachMessage = "* You scratch Crying Cat\n  behind the ears.";
             }
             else
             {
-                yield return _battleController.BattleApproachMessage = "* Crying Cat bites your\n  finger, but out of love.\n* Enough petting.";
+                _battleController.BattleApproachMessage = "* Crying Cat bites your\n  finger, but out of love.\n* Enough petting.";
             }
         }
 
@@ -100,20 +101,20 @@ public sealed class CryingCat : Enemy
         }
         else
         {
-            _sparemeter -= 5;
+            Sparemeter -= 5;
             _actchoice = 3;
 
-            if (_sparemeter == 5)
+            if (Sparemeter == 5)
             {
-                yield return _battleController.BattleApproachMessage = "* Crying Cat's tears seem to\n  be drying up.";
+                _battleController.BattleApproachMessage = "* Crying Cat's tears seem to\n  be drying up.";
             }
-            else if (_sparemeter == 0)
+            else if (Sparemeter == 0)
             {
-                yield return _battleController.BattleApproachMessage = "* Crying Cat purrs softly.\n* Seems like she's happy!";
+                _battleController.BattleApproachMessage = "* Crying Cat purrs softly.\n* Seems like she's happy!";
             }
             else
             {
-                yield return _battleController.BattleApproachMessage = "* Crying Cat bites your\n  finger, but out of love.\n* Enough petting.";
+                _battleController.BattleApproachMessage = "* Crying Cat bites your\n  finger, but out of love.\n* Enough petting.";
             }
         }
         
@@ -138,7 +139,7 @@ public sealed class CryingCat : Enemy
 
     protected override void PlayerTurn()
     {
-        if (_sparemeter <= 0 || Health < 2)
+        if (Sparemeter <= 0 || Health < 2)
         {
             if (Health <= 0)
                 _battleController.BattleApproachMessage = "* Crying Cat collapses in her\n  own tears.";
@@ -147,7 +148,7 @@ public sealed class CryingCat : Enemy
             else
                 _battleController.BattleApproachMessage = "* Crying Cat purrs so loud,\n  the walls are beginning to\n  shake.";
 
-            if (_sparemeter <= 0)
+            if (Sparemeter <= 0)
                 _battleController.BattleApproachMessage = "* Crying Cat was hired as a\n  mice hunter for an old\n  lady.";
             
             IsYellowName = true;
@@ -156,9 +157,9 @@ public sealed class CryingCat : Enemy
         _battleController.PlayerTurn();
     }
 
-    protected override string GetMessage()
+    protected override string[] GetMessage()
     {
-        if (_sparemeter > 0 && _actchoice == 0)
+        if (Sparemeter > 0 && _actchoice == 0)
         {
             return Choose();
         }
@@ -180,33 +181,33 @@ public sealed class CryingCat : Enemy
     
         if (_actchoice == 3)
         {
-            if (_sparemeter > 4)
+            if (Sparemeter > 4)
             {
-                return "Meow?";
+                return new[] {"Meow?"};
             }
             else
             {
-                return "(Meow...)";
+                return new[] {"(Meow...)"};
             }
         }
     
-        if (_sparemeter <= 0 && _actchoice == 0)
+        if (Sparemeter <= 0 && _actchoice == 0)
         {
-            return "(Purr...)";
+            return new[] {"(Purr...)"};
         }
 
         throw new Exception("Нету комментария");
     }
 
-    private string Choose()
+    private string[] Choose()
     {
-        return Random.Range(0, 4) switch
+        return new[] {Random.Range(0, 4) switch
         {
             0 => "(Whine)",
             1 => "(Sigh)",
             2 => "(Sniff)",
             3 => "(Yelp)",
             _ => throw new ArgumentOutOfRangeException()
-        };
+        }};
     }
 }

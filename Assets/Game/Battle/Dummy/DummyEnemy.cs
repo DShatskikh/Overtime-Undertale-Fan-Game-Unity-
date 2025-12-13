@@ -28,7 +28,7 @@ public sealed class DummyEnemy : Enemy
         Soul.Instance.gameObject.SetActive(false);
         _actchoice = act + 1;
         
-        yield return _battleController.BattleApproachMessage = _actchoice switch
+        _battleController.BattleApproachMessage = _actchoice switch
         {
             1 => GetBaseInspected(),
             2 => "* You talk to the dummy.\n* Sani looks happy that\n  you didn't use violence.",
@@ -67,15 +67,15 @@ public sealed class DummyEnemy : Enemy
         }
         else if (_actchoice == 2)
         {
-            _sparemeter -= 10;
+            Sparemeter -= 10;
         }
         else if (_actchoice == 3)
         {
-            _sparemeter -= 10;
+            Sparemeter -= 10;
         }
         else
         {
-            _sparemeter -= 10;
+            Sparemeter -= 10;
         }
         
         yield return AwaitShowMessage();
@@ -86,7 +86,7 @@ public sealed class DummyEnemy : Enemy
 
     protected override void PlayerTurn()
     {
-        if (_sparemeter <= 0 || Health < 2)
+        if (Sparemeter <= 0 || Health < 2)
         {
             if (Health <= 0)
                 _battleController.BattleApproachMessage = "* Dummy has been shot. Ow.";
@@ -101,25 +101,25 @@ public sealed class DummyEnemy : Enemy
         _battleController.PlayerTurn();
     }
     
-    protected override string GetMessage()
+    protected override string[] GetMessage()
     {
-        if (_sparemeter > 0)
-            return "...";
+        if (Sparemeter > 0)
+            return new[] { "..." };
 
         if (_actchoice == 4)
-            return "...?";
+            return new[] { "...?" };
 
         if (_actchoice == 1)
-            return "...";
+            return new[] { "..." };
 
         if (_actchoice == 2)
-            return "...!";
+            return new[] { "...!" };
 
         if (_actchoice == 3)
-            return "...!";
+            return new[] { "...!" };
 
-        if (_sparemeter <= 0)
-            return "...:)";
+        if (Sparemeter <= 0)
+            return new[] { "...:)" };
 
         throw new Exception("Нужно добавить реплику");
     }

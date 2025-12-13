@@ -64,6 +64,9 @@ public sealed class BattleController : MonoBehaviour
     [SerializeField]
     private Frame _frame;
 
+    [SerializeField]
+    private GameObject _runSoul;
+    
     private bool _isTurnPlayer = true;
     private bool _isMainMenu = true;
     private Coroutine _writeCoroutine;
@@ -836,11 +839,30 @@ public sealed class BattleController : MonoBehaviour
         _gunAnimator.SetBool("IsShot", false);
         yield return new WaitForSeconds(0.8f);
         _damageSFX.Play();
-        var damage = _enemies[_indexFightSelect].IsYellowName ? _enemies[_indexFightSelect].Health : 3;
+
+        var damageIndicatorMultiply = 0f;
+        const int baseDamage = 2; // Удали
+        var stickPositionX = _indicatorStick.localPosition.x;
+
+        damageIndicatorMultiply = stickPositionX switch
+        {
+            < -7.05f => 0,
+            < -5.63f => 0.5f,
+            < -2.83f => 0.75f,
+            < -0.83f => 1f,
+            < 0.98f => 1.5f,
+            < 2.77f => 1f,
+            < 4.9f => 0.75f,
+            < 7.03f => 0.5f,
+            _ => damageIndicatorMultiply
+        };
+
+        var damage = (int)(_enemies[_indexFightSelect].IsYellowName ? _enemies[_indexFightSelect].Health : damageIndicatorMultiply * baseDamage);
         var damageEffect = Instantiate(Resources.Load<DamageEffect>("Damage Effect"), 
             new Vector3(_enemies[_indexFightSelect].transform.position.x, transform.position.y + 5.01f), 
             Quaternion.identity, transform);
-        damageEffect.Init((Mathf.Min(damage, _enemies[_indexFightSelect].Health)).ToString(), _enemies[_indexFightSelect].Health - damage, _enemies[_indexFightSelect].MaxHealth);
+        damageEffect.Init(damage, _enemies[_indexFightSelect].Health - damage, 
+            _enemies[_indexFightSelect].MaxHealth);
         StartCoroutine(_enemies[_indexFightSelect].AwaitDamage(damage));
         yield return new WaitForSeconds(1);
         Destroy(damageEffect.gameObject);
@@ -852,7 +874,7 @@ public sealed class BattleController : MonoBehaviour
         //     yield return new WaitForSeconds(1);
         
         if (_enemies.Any(enemy => enemy.Health > 0))
-            StartCoroutine(_enemies[_indexFightSelect].AwaitFight());
+            StartCoroutine(_enemies.First(enemy => !enemy.IsDead && !enemy.IsSpare).AwaitFight());
         else
             StartCoroutine(AwaitEndBattle());
     }
@@ -945,8 +967,24 @@ public sealed class BattleController : MonoBehaviour
     {
         _isTurnPlayer = false;
         _isRun = true;
-        yield return new WaitForSeconds(1);
-        StartCoroutine(AwaitEndBattle());
+        _line.gameObject.SetActive(true);
+        _line.text = "  * I'm  outta here.";
+        Soul.Instance.gameObject.SetActive(false);
+        _runSoul.SetActive(true);
+
+        while (_runSoul.transform.position.x > -10.08f)
+        {
+            _runSoul.transform.position -= new Vector3(Time.deltaTime * 1.5f, 0);
+            yield return null;
+        }
+
+        Instantiate(Resources.Load<EndBattleAnimation>("End Battle Animation"));
+        MusicPlayer.Instance.Play(_previousMusic);
+
+        foreach (var enemy in _enemies)
+        {
+            enemy.End();
+        }
     }
 
     public IEnumerator AwaitEndBattle()

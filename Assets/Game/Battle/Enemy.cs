@@ -13,12 +13,12 @@ public abstract class Enemy : MonoBehaviour
     public bool IsYellowName;
     public int MaxHealth = 5;
     public int Health = 5;
+    public int Sparemeter = 10;
     public int Defense = 0;
     public int Attack = 0;
     public int XP = 0;
     public int Australium = 0;
 
-    protected int _sparemeter = 10;
     protected int _actchoice;
     protected BattleController _battleController;
     public bool IsSpare { private set; get; }
@@ -128,14 +128,14 @@ public abstract class Enemy : MonoBehaviour
         $"* {Name} ATK {Attack} DEF {Defense}\n* {Quip}\n* {Info}";
 
     protected abstract void PlayerTurn();
-    protected abstract string GetMessage();
+    protected abstract string[] GetMessage();
 
     protected virtual void ShowMessage(Action action = null)
     {
         var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
             transform.position + new Vector3(1.21f, 4.54f), Quaternion.identity, transform);
 
-        messageBox.Open(new []{ GetMessage()}, action );
+        messageBox.Open(GetMessage(), action );
     }
 
     protected IEnumerator AwaitShowMessage()

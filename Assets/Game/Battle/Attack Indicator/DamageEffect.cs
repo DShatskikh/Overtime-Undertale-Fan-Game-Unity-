@@ -8,9 +8,19 @@ public sealed class DamageEffect : MonoBehaviour
     [SerializeField]
     private EnemyHealthBar _enemyHealth;
     
-    public void Init(string text, float health, float maxHealth)
+    public void Init(int damage, float health, float maxHealth)
     {
-        _label.text = text;
+        if (damage == 0)
+        {
+            _label.text = "MISS POULING";
+            _label.color = Color.white;
+        }
+        else
+        {
+            _label.text = damage.ToString();
+            _label.color = Color.red;
+        }
+        
         _enemyHealth.ChangeHealth(health, maxHealth);
     }
 }

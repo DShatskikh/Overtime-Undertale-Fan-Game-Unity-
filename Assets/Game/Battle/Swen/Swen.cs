@@ -31,20 +31,18 @@ public sealed class Swen : Enemy
         var messageBox = Instantiate(Resources.Load<MessageEnemyBattle>("Message Enemy Battle"), 
             transform.position + new Vector3(1.21f, 2.93f), Quaternion.identity, transform);
 
-        messageBox.Open(new []{ GetMessage()}, action );
+        messageBox.Open(GetMessage(), action );
     }
     
     public override IEnumerator AwaitEnemyTurn()
     {
         var activeEnemiesCount = BattleController.Instance.GetEnemies.Count(enemy =>
             !enemy.IsDead && !enemy.IsSpare);
-        
-        Debug.Log(activeEnemiesCount);
-        
+
         if (activeEnemiesCount == 1)
-            yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
+            _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
         else
-            yield return _battleController.GetFrame.AwaitUpgradeSize(1.5f, 1.15f);
+            _battleController.GetFrame.AwaitUpgradeSize(1.5f, 1.15f);
         
         Soul.Instance.gameObject.SetActive(true);
         Soul.Instance.transform.position = BattleController.Instance.transform.position + new Vector3(0, -2);
@@ -84,37 +82,37 @@ public sealed class Swen : Enemy
         
         if (_actchoice == 1)
         {
-            yield return _battleController.BattleApproachMessage = "* Sven is still angry.";
+            _battleController.BattleApproachMessage = "* Sven thinks you're\n  judging him for being\n  dirty.";
         }
         else if (_actchoice == 2)
         {
-            _sparemeter -= 5;
-            
-            if (_sparemeter == 10)
-            {
-                yield return _battleController.BattleApproachMessage = "* Sven has calmed down\n  a bit.";
-            }
-        
-            if (_sparemeter == 5)
-            {
-                yield return _battleController.BattleApproachMessage = "* Even though you can't see\n  his face, Sven appears to\n  smile.";
-            }
-            
-            if (_sparemeter < 0)
-            {
-                yield return _battleController.BattleApproachMessage = "* Sven admires himself in his\n  shiny armor.";
-            }
+            _battleController.BattleApproachMessage = "* Sven is still angry.";
         }
         else if (_actchoice == 3)
         {
-            if (_sparemeter < 15 && _sparemeter != 0)
-                _sparemeter += 5;
+            Sparemeter -= 5;
             
-            yield return _battleController.BattleApproachMessage = "* Sven seems even more upset.";
+            if (Sparemeter == 10)
+            {
+                _battleController.BattleApproachMessage = "* Sven has calmed down\n  a bit.";
+            }
+        
+            if (Sparemeter == 5)
+            {
+                _battleController.BattleApproachMessage = "* Even though you can't see\n  his face, Sven appears to\n  smile.";
+            }
+            
+            if (Sparemeter < 0)
+            {
+                _battleController.BattleApproachMessage = "* Sven admires himself in his\n  shiny armor.";
+            }
         }
         else if (_actchoice == 4)
         {
-            yield return _battleController.BattleApproachMessage = "* Sven thinks you're\n  judging him for being\n  dirty.";
+            if (Sparemeter < 15 && Sparemeter != 0)
+                Sparemeter += 5;
+            
+            _battleController.BattleApproachMessage = "* Sven seems even more upset.";
         }
         
         _battleController.WriteStartMessage();
@@ -131,39 +129,39 @@ public sealed class Swen : Enemy
 
         if (_actchoice == 1)
         {
-            yield return _battleController.BattleApproachMessage = Choose(
-                new[] { "* You read a passage from\n  the little book of calm.\n* But Sven didn't listen.",
-                    "* You try to calm Sven down.\n* He ignores you and tries to\n  dust off his shoulders."});
+            _battleController.BattleApproachMessage = "* You pick up some dirt from\n  the ground and smear it all\n  over Sven.";
         }
         else if (_actchoice == 2)
         {
-            if (_sparemeter == 10)
-            {
-                yield return _battleController.BattleApproachMessage = "* You use a broom to\n  sweep off all the dirt#  you put on Sven.";
-            }
-        
-            if (_sparemeter == 5)
-            {
-                yield return _battleController.BattleApproachMessage = "* You put wax on the rag and\n  polish Sven's armor until\n  it's shiny again.";
-            }
-            
-            if (_sparemeter == 0)
-            {
-                yield return _battleController.BattleApproachMessage = "* You use a wet rag to clean\n  Sven's armor until you can\n  see your face in it.";
-            }
-            
-            if (_sparemeter < 0)
-            {
-                yield return _battleController.BattleApproachMessage = "* Your hands slip off of\n  Sven's armor, as it's\n  already clean.";
-            }
+            _battleController.BattleApproachMessage = Choose(
+                new[] { "* You read a passage from\n  the little book of calm.\n* But Sven didn't listen.",
+                    "* You try to calm Sven down.\n* He ignores you and tries to\n  dust off his shoulders."});
         }
         else if (_actchoice == 3)
         {
-            yield return _battleController.BattleApproachMessage = "* Sven seems even more upset.";
+            if (Sparemeter == 10)
+            {
+                _battleController.BattleApproachMessage = "* You use a broom to\n  sweep off all the dirt#  you put on Sven.";
+            }
+        
+            if (Sparemeter == 5)
+            {
+                _battleController.BattleApproachMessage = "* You put wax on the rag and\n  polish Sven's armor until\n  it's shiny again.";
+            }
+            
+            if (Sparemeter == 0)
+            {
+                _battleController.BattleApproachMessage = "* You use a wet rag to clean\n  Sven's armor until you can\n  see your face in it.";
+            }
+            
+            if (Sparemeter < 0)
+            {
+                _battleController.BattleApproachMessage = "* Your hands slip off of\n  Sven's armor, as it's\n  already clean.";
+            }
         }
         else if (_actchoice == 4)
         {
-            yield return _battleController.BattleApproachMessage = "* You pick up some dirt from\n  the ground and smear it all\n  over Sven.";
+            _battleController.BattleApproachMessage = "* Sven seems even more upset.";
         }
 
         StartCoroutine(AwaitEnemyTurn());
@@ -187,7 +185,7 @@ public sealed class Swen : Enemy
 
     protected override void PlayerTurn()
     {
-        if (_sparemeter <= 0 || Health < 2)
+        if (Sparemeter <= 0 || Health < 2)
         {
             if (Health <= 0)
                 _battleController.BattleApproachMessage = "* Sven shatters to the floor.";
@@ -204,45 +202,45 @@ public sealed class Swen : Enemy
         _battleController.PlayerTurn();
     }
 
-    protected override string GetMessage()
+    protected override string[] GetMessage()
     {
         if (_actchoice == 0)
         {
-            if (_sparemeter > 0)
-                return "Grmbl...";
+            if (Sparemeter > 0)
+                return new[] {"Grmbl..."};
             else
-               return "I am so\npretty.";
+               return new[] {"I am so\npretty."};
         }
         else if (_actchoice == 1)
         {
-            return  "No one\ncleans\nme...";
+            return  new[] {"No one\ncleans\nme..."};
         }
         else if (_actchoice == 2)
         {
-            if (_sparemeter > 9)
+            if (Sparemeter > 9)
             {
-                return "I hate\nyou\nstill...";
+                return new[] {"I hate\nyou\nstill..."};
             }
         
-            if (_sparemeter > 4)
+            if (Sparemeter > 4)
             {
-                return "This is\nnicer...";
+                return new[] {"This is\nnicer..."};
             }
             else
             {
-                return "I feel\na lot\nbetter!";
+                return new[] {"I feel\na lot\nbetter!"};
             }
         }
         else if (_actchoice == 3)
         {
-            return "WHY\nWOULD\nYOU DO\nTHAT?!?";;
+            return new[] {"WHY\nWOULD\nYOU DO\nTHAT?!?"};
         }
         else if (_actchoice == 4)
         {
-            return "Stop\nthat!";
+            return new[] {"Stop\nthat!"};
         }
 
-        return string.Empty;
+        return new[] { string.Empty };
     }
     
     private string Choose(string[] texts)

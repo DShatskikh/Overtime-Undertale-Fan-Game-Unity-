@@ -101,15 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Zepheniah
-  Quip: 
-  Info: 
-  Acts: []
+  Quip: Bullets won't do anything.
+  Info: Or will they..?
+  Acts:
+  - Talk
+  - Distract
+  - Flirt
   Attacks: []
   IsRun: 0
   IsYellowName: 0
-  MaxHealth: 5
-  Health: 5
-  Defense: 0
-  Attack: 0
+  MaxHealth: 666
+  Health: 666
+  Sparemeter: 25
+  Defense: 999
+  Attack: 3
   XP: 0
   Australium: 0
