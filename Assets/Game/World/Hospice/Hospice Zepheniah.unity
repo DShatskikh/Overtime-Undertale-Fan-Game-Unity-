@@ -262,7 +262,64 @@ MonoBehaviour:
     Icon: {fileID: 0}
     AnimationName: 
     SFX: {fileID: 0}
-  _replicas_end_battle_mercy: []
+  _replicas_end_battle_mercy:
+  - Dialogues:
+    - 'You..didn''t use
+
+      your gun at all...'
+    - But why?
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - 'Why did you not try
+
+      to shoot at me?'
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - Because I am a ghost?
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - 'Or do you simlyy not
+
+      like using weapons?'
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - ...
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - Maybe it is not too late.
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - 'Maybe not everyone around
+
+      here is an idiot who only
+
+      cares for
+      themselves.'
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - ...
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
+  - Dialogues:
+    - Thank you.
+    Icon: {fileID: 0}
+    AnimationName: 
+    SFX: {fileID: 0}
   _view_1: {fileID: 1011025963}
   _view_2: {fileID: 1284021554}
 --- !u!61 &261153844
@@ -2836,6 +2893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1011025964}
   - component: {fileID: 1011025965}
+  - component: {fileID: 1011025966}
   m_Layer: 0
   m_Name: View_1
   m_TagString: Untagged
@@ -2913,6 +2971,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!95 &1011025966
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011025963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f6493020ca7d4204fb180769e8d9d148, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1019570553
 PrefabInstance:
   m_ObjectHideFlags: 0

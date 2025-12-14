@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2ec58ddb184ab190843ad8436a4f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _battleData: {fileID: 11400000, guid: 6b050723d4e82b340b738b0b6722e00d, type: 2}
+  _battleData: {fileID: 11400000, guid: 80d4926146e818040ad56ae43e874793, type: 2}
 --- !u!1 &785897786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +2150,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 4.8, y: 1.15}
+  m_Size: {x: 1.5, y: 1.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -27,5 +27,7 @@ public sealed class EndBattleAnimation : MonoBehaviour
         
         FindAnyObjectByType<Camera>(FindObjectsInactive.Include).gameObject.SetActive(true);
         Destroy(gameObject);
+
+        BattleController.Instance.EndBattleInvokeEvent();
     }
 }

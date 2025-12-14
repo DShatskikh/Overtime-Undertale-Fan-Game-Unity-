@@ -10,7 +10,7 @@ public sealed class Swen : Enemy
     {
         _battleController = battleController;
 
-        if (BattleController.Instance.GetEnemies.Count == 1)
+        if (BattleController.Instance.GetEnemies.Count != 1)
         {
             _battleController.BattleApproachMessage =
                 "* The floor is wet from\n  Crying Cat's tears, which\n  makes you slip and fall.";
@@ -40,9 +40,9 @@ public sealed class Swen : Enemy
             !enemy.IsDead && !enemy.IsSpare);
 
         if (activeEnemiesCount == 1)
-            _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
+            yield return _battleController.GetFrame.AwaitUpgradeSize(1.15f, 1.15f);
         else
-            _battleController.GetFrame.AwaitUpgradeSize(1.5f, 1.15f);
+            yield return _battleController.GetFrame.AwaitUpgradeSize(1.5f, 1.15f);
         
         Soul.Instance.gameObject.SetActive(true);
         Soul.Instance.transform.position = BattleController.Instance.transform.position + new Vector3(0, -2);
@@ -82,54 +82,9 @@ public sealed class Swen : Enemy
         
         if (_actchoice == 1)
         {
-            _battleController.BattleApproachMessage = "* Sven thinks you're\n  judging him for being\n  dirty.";
-        }
-        else if (_actchoice == 2)
-        {
-            _battleController.BattleApproachMessage = "* Sven is still angry.";
-        }
-        else if (_actchoice == 3)
-        {
-            Sparemeter -= 5;
-            
-            if (Sparemeter == 10)
-            {
-                _battleController.BattleApproachMessage = "* Sven has calmed down\n  a bit.";
-            }
-        
-            if (Sparemeter == 5)
-            {
-                _battleController.BattleApproachMessage = "* Even though you can't see\n  his face, Sven appears to\n  smile.";
-            }
-            
-            if (Sparemeter < 0)
-            {
-                _battleController.BattleApproachMessage = "* Sven admires himself in his\n  shiny armor.";
-            }
-        }
-        else if (_actchoice == 4)
-        {
-            if (Sparemeter < 15 && Sparemeter != 0)
-                Sparemeter += 5;
-            
-            _battleController.BattleApproachMessage = "* Sven seems even more upset.";
-        }
-        
-        _battleController.WriteStartMessage();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
-        if (_battleController.IsGetWriteProcessing)
-        {
-            _battleController.ShowWriteAllLine();
-            yield return null;
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-        }
-
-        _battleController.StopWrite();
-
-        if (_actchoice == 1)
-        {
-            _battleController.BattleApproachMessage = "* You pick up some dirt from\n  the ground and smear it all\n  over Sven.";
+            _battleController.BattleApproachMessage = GetBaseInspected();
+            //yield return null;
+            //_battleController.BattleApproachMessage = "* Sven thinks you're\n  judging him for being\n  dirty.";
         }
         else if (_actchoice == 2)
         {
@@ -161,6 +116,55 @@ public sealed class Swen : Enemy
         }
         else if (_actchoice == 4)
         {
+            //_battleController.BattleApproachMessage = "* Sven seems even more upset.";
+            _battleController.BattleApproachMessage = "* You pick up some dirt from\n  the ground and smear it all\n  over Sven.";
+        }
+
+        yield return null;
+        _battleController.WriteStartMessage();
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+        if (_battleController.IsGetWriteProcessing)
+        {
+            _battleController.ShowWriteAllLine();
+            yield return null;
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        }
+
+        _battleController.StopWrite();
+
+        if (_actchoice == 1)
+        {
+            _battleController.BattleApproachMessage = "* Sven thinks you're\njudging him for being\ndirty";
+        }
+        else if (_actchoice == 2)
+        {
+            _battleController.BattleApproachMessage = "* Sven is still angry.";
+        }
+        else if (_actchoice == 3)
+        {
+            Sparemeter -= 5;
+            
+            if (Sparemeter == 10)
+            {
+                _battleController.BattleApproachMessage = "* Sven has calmed down\n  a bit.";
+            }
+        
+            if (Sparemeter == 5)
+            {
+                _battleController.BattleApproachMessage = "* Even though you can't see\n  his face, Sven appears to\n  smile.";
+            }
+            
+            if (Sparemeter < 0)
+            {
+                _battleController.BattleApproachMessage = "* Sven admires himself in his\n  shiny armor.";
+            }
+        }
+        else if (_actchoice == 4)
+        {
+            if (Sparemeter < 15 && Sparemeter != 0)
+                Sparemeter += 5;
+            
             _battleController.BattleApproachMessage = "* Sven seems even more upset.";
         }
 
@@ -206,14 +210,12 @@ public sealed class Swen : Enemy
     {
         if (_actchoice == 0)
         {
-            if (Sparemeter > 0)
-                return new[] {"Grmbl..."};
-            else
-               return new[] {"I am so\npretty."};
+            return  new[] {"No one\ncleans\nme..."};
         }
         else if (_actchoice == 1)
         {
-            return  new[] {"No one\ncleans\nme..."};
+            return new[] {"Stop\nthat!"};
+            
         }
         else if (_actchoice == 2)
         {
@@ -237,7 +239,10 @@ public sealed class Swen : Enemy
         }
         else if (_actchoice == 4)
         {
-            return new[] {"Stop\nthat!"};
+            if (Sparemeter > 0)
+                return new[] {"Grmbl..."};
+            else
+                return new[] {"I am so\npretty."};
         }
 
         return new[] { string.Empty };

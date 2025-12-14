@@ -37,7 +37,7 @@ public sealed class Frame : MonoBehaviour
 
     public void SetSize(float width, float height)
     {
-        StartCoroutine(AwaitUpgradeSize(width, height));
+        _spriteRenderer.size = new Vector2(width, height);
     }
 
     public IEnumerator AwaitUpgradeSize(float width, float height)

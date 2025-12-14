@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Irate Sven
   Quip: A knight in dirty armor.
-  Info: '"Dirty, yet gorgeous.'
+  Info: Dirty, yet gorgeous.
   Acts:
   - Calm
   - Clean
@@ -113,6 +113,7 @@ MonoBehaviour:
   IsYellowName: 0
   MaxHealth: 9
   Health: 9
+  Sparemeter: 10
   Defense: 2
   Attack: 3
   XP: 0

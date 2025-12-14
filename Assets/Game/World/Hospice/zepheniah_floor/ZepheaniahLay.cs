@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public sealed class ZepheaniahLay : MonoBehaviour, IUsable
@@ -15,14 +16,27 @@ public sealed class ZepheaniahLay : MonoBehaviour, IUsable
     [SerializeField]
     private GameObject _view_2;
     
-    private void OnEnable()
+    private void Start()
     {
-        StartCoroutine(AwaitCutscene_2());
+        if (SaveSystem.GetInt("Zepheaniah_State") == 4)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+    }
+    
+    private void InstanceOnEndBattle()
+    {
+        if (SaveSystem.GetInt("Zepheaniah_State") == 3) // Kill
+            StartCoroutine(AwaitCutscene_Kill());
+        else if (SaveSystem.GetInt("Zepheaniah_State") == 2) // Mercy
+            StartCoroutine(AwaitCutscene_Mercy());
     }
 
     public void Use()
     {
-        StartCoroutine(AwaitCutscene());
+        if (SaveSystem.GetInt("Zepheaniah_State") == 0)
+            StartCoroutine(AwaitCutscene());
     }
 
     private IEnumerator AwaitCutscene()
@@ -36,7 +50,7 @@ public sealed class ZepheaniahLay : MonoBehaviour, IUsable
         });
         
         yield return new WaitUntil(() => isEnd);
-        // Запускаем анимацию
+        _view_1.GetComponent<Animator>().SetTrigger("Up");
         yield return new WaitForSeconds(1);
         
         isEnd = false;
@@ -45,25 +59,60 @@ public sealed class ZepheaniahLay : MonoBehaviour, IUsable
             isEnd = true;
         });
         
+        yield return new WaitUntil(() => isEnd);
+        
         var startBattleAnimation = Instantiate(Resources.Load<StartBattleAnimation>("StartBattleAnimation"));
         startBattleAnimation.Init(11, new Vector2(-6.76f, -5.300001f), 
-            () => FindAnyObjectByType<BattleController>().Init(_battleConfig.Data));
+            () =>
+            {
+                FindAnyObjectByType<BattleController>().Init(_battleConfig.Data);
+                BattleController.Instance.EndBattle += InstanceOnEndBattle;
+            });
     }
 
-    private IEnumerator AwaitCutscene_2()
+    private IEnumerator AwaitCutscene_Kill()
     {
         Player.Instance.enabled = false;
         _view_1.SetActive(false);
         _view_2.SetActive(true);
         
         var isEnd = false;
-        
-        // Усли атаковали
         DialogueWindow.Open(_replicas_end_battle_attack, () => { isEnd = true; });
+        yield return new WaitUntil(() => isEnd);
 
+        var delta = 0f;
+        while (delta < 1)
+        {
+            delta += Time.deltaTime;
+            _view_2.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - delta);
+            yield return null;
+        }
+        
+        Player.Instance.enabled = true;
+        SaveSystem.SetInt("Zepheaniah_State", 4);
+        gameObject.SetActive(false);
+    }
+
+    private IEnumerator AwaitCutscene_Mercy()
+    {
+        Player.Instance.enabled = false;
+        _view_1.SetActive(false);
+        _view_2.SetActive(true);
+        
+        var isEnd = false;
+        DialogueWindow.Open(_replicas_end_battle_mercy, () => { isEnd = true; });
         yield return new WaitUntil(() => isEnd);
         
-        // Анимация исчезновения
+        var delta = 0f;
+        while (delta < 1)
+        {
+            delta += Time.deltaTime;
+            _view_2.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - delta);
+            yield return null;
+        }
+        
         Player.Instance.enabled = true;
+        SaveSystem.SetInt("Zepheaniah_State", 4);
+        gameObject.SetActive(false);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -95,6 +96,7 @@ public sealed class BattleController : MonoBehaviour
     private AudioClip _previousMusic;
     private bool _isRun;
     public bool IsGetWriteProcessing => _writeCoroutine != null;
+    public event Action EndBattle;
 
     private void Awake()
     {
@@ -128,6 +130,7 @@ public sealed class BattleController : MonoBehaviour
 
         _previousMusic = MusicPlayer.Instance.GetClip;
         MusicPlayer.Instance.Play(battleDataData.Music);
+        _frame.SetSize(4.8f, 1.15f);
         WriteStartMessage();
     }
 
@@ -839,7 +842,7 @@ public sealed class BattleController : MonoBehaviour
         _gunAnimator.SetBool("IsShot", false);
         yield return new WaitForSeconds(0.8f);
         _damageSFX.Play();
-
+        
         var damageIndicatorMultiply = 0f;
         const int baseDamage = 2; // Удали
         var stickPositionX = _indicatorStick.localPosition.x;
@@ -858,6 +861,14 @@ public sealed class BattleController : MonoBehaviour
         };
 
         var damage = (int)(_enemies[_indexFightSelect].IsYellowName ? _enemies[_indexFightSelect].Health : damageIndicatorMultiply * baseDamage);
+        
+        if (_enemies[0] is Zepheniah zepheniah)
+        {
+            damage = 0;
+            //StartCoroutine(zepheniah.AwaitDamage(0));
+            //yield break;
+        }
+        
         var damageEffect = Instantiate(Resources.Load<DamageEffect>("Damage Effect"), 
             new Vector3(_enemies[_indexFightSelect].transform.position.x, transform.position.y + 5.01f), 
             Quaternion.identity, transform);
@@ -870,9 +881,6 @@ public sealed class BattleController : MonoBehaviour
         _fightIndicator.SetActive(false);
         _isFightIndicator = false;
 
-        // if (_enemies[_indexFightSelect].IsDead)
-        //     yield return new WaitForSeconds(1);
-        
         if (_enemies.Any(enemy => enemy.Health > 0))
             StartCoroutine(_enemies.First(enemy => !enemy.IsDead && !enemy.IsSpare).AwaitFight());
         else
@@ -1023,6 +1031,12 @@ public sealed class BattleController : MonoBehaviour
         }
     }
 
+    public void EndBattleInvokeEvent()
+    {
+        EndBattle?.Invoke();
+        EndBattle = null;
+    }
+    
     public void StopWrite()
     {
         if (_writeCoroutine != null)

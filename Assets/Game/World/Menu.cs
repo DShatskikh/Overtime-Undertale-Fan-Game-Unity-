@@ -146,14 +146,14 @@ public sealed class Menu : MonoBehaviour
             
             _soul.transform.localPosition = _itemMenuSelected switch
             {
-                0 => new Vector3(1.107f + 0.592f, 4.369f),
-                1 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f),
-                2 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 2),
-                3 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 3),
-                4 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 4),
-                5 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 5),
-                6 => new Vector3(1.107f + 0.592f, 4.369f - 0.86f * 6),
-                7 => new Vector3(1.107f + 0.592f, -1.646f),
+                0 => new Vector3(2.4f, 4.369f),
+                1 => new Vector3(2.4f, 4.369f - 0.86f),
+                2 => new Vector3(2.4f, 4.369f - 0.86f * 2),
+                3 => new Vector3(2.4f, 4.369f - 0.86f * 3),
+                4 => new Vector3(2.4f, 4.369f - 0.86f * 4),
+                5 => new Vector3(2.4f, 4.369f - 0.86f * 5),
+                6 => new Vector3(2.4f, 4.369f - 0.86f * 6),
+                7 => new Vector3(2.4f, -1.646f),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -190,9 +190,9 @@ public sealed class Menu : MonoBehaviour
             
             _soul.transform.localPosition = _itemDownMenuSelected switch
             {
-                0 => new Vector3(1.107f + 0.592f, -3.218f),
-                1 => new Vector3(3.71f + 0.592f, -3.218f),
-                2 => new Vector3(6.84f + 0.592f, -3.218f),
+                0 => new Vector3(2.4f, -3.218f),
+                1 => new Vector3(5f + 0.592f, -3.218f),
+                2 => new Vector3(8.2f + 0.592f, -3.218f),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
