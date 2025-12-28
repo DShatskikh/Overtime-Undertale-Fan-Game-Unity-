@@ -65,12 +65,14 @@ public sealed class Menu : MonoBehaviour
         }
 
         _nameLabel.text = "\"Denis\"";
-        _lvLabel.text = $"LV {1}";
-        _hpLabel.text = $"HP {20}/{20}";
-        _killedLabel.text = $"KILLED {0}";
-        _hiredLabel.text = $"HIRRED {0}";
-        _australiumLabel.text = $"AUSTRALIUM {0}";
-        _timeLabel.text = $"{1}:{17}";
+        _lvLabel.text = $"LV {PlayerStats.Instance.LV}";
+        _hpLabel.text = $"HP {PlayerStats.Instance.HP}/{PlayerStats.Instance.MaxHP}";
+        _killedLabel.text = $"KILLED {PlayerStats.Instance.KILLED}";
+        _hiredLabel.text = $"HIRED {PlayerStats.Instance.HIRED}";
+        _australiumLabel.text = $"AUSTRALIUM {PlayerStats.Instance.AUSTRALIUM}";
+        
+        var time = GameTimer.Instance.GetTime;
+        _timeLabel.text = $"{(int)time - (int)time % 60}:{(int)time % 60}\n";
     }
 
     private void Update()
@@ -114,6 +116,12 @@ public sealed class Menu : MonoBehaviour
             };
         }
 
+        if (_isNodeMenuSelected)
+        {
+            var time = GameTimer.Instance.GetTime;
+            _timeLabel.text = $"{(int)time - (int)time % 60}:{(int)time % 60}\n";
+        }
+        
         if (_isItemMenuSelected)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))

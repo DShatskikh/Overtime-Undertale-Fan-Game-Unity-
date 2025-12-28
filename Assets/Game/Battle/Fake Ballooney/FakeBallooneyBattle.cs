@@ -66,9 +66,9 @@ public sealed class FakeBallooneyBattle : MonoBehaviour
         if (!Soul.Instance)
         {
             Instantiate(Resources.Load<Soul>("Soul"));
-            Soul.Instance.transform.localPosition = new Vector3(0, -2.2f);
         }
 
+        Soul.Instance.transform.position = transform.position + new Vector3(0, -2.2f);
         StartCoroutine(AwaitCutscene());
     }
 

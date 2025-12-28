@@ -3,6 +3,9 @@
 public sealed class Puzzle_2 : MonoBehaviour
 {
     [SerializeField]
+    private string _id;
+    
+    [SerializeField]
     private string _correctCode;
 
     [SerializeField]
@@ -29,7 +32,7 @@ public sealed class Puzzle_2 : MonoBehaviour
             plate.Init(this, i + 1);
         }
 
-        if (SaveSystem.GetBool("IsPuzzle_2_Activated"))
+        if (SaveSystem.GetBool($"IsPuzzle_{_id}_Activated"))
         {
             Decied();
         }

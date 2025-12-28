@@ -24,6 +24,9 @@ public sealed class BattleController : MonoBehaviour
     private TextMesh _line;
 
     [SerializeField]
+    private TextMesh _infoLabel;
+    
+    [SerializeField]
     private GameObject _fightSelect;
     
     [SerializeField]
@@ -61,13 +64,16 @@ public sealed class BattleController : MonoBehaviour
 
     [SerializeField]
     private AudioSource _spareSFX;
-    
+
+    [SerializeField]
+    private AudioSource _lvUpSFX;
+
     [SerializeField]
     private Frame _frame;
 
     [SerializeField]
     private GameObject _runSoul;
-    
+
     private bool _isTurnPlayer = true;
     private bool _isMainMenu = true;
     private Coroutine _writeCoroutine;
@@ -128,6 +134,7 @@ public sealed class BattleController : MonoBehaviour
             _enemies[index] = enemy;
         }
 
+        _infoLabel.text = $"{PlayerStats.Instance.PlayerName}   LV {PlayerStats.Instance.LV}   HP";
         _previousMusic = MusicPlayer.Instance.GetClip;
         MusicPlayer.Instance.Play(battleDataData.Music);
         _frame.SetSize(4.8f, 1.15f);
@@ -1001,17 +1008,65 @@ public sealed class BattleController : MonoBehaviour
         
         _spareSFX.Play();
         var australium = 0;
+        var xp = 0;
 
         if (!_isRun)
         {
             foreach (var enemy in _enemies)
             {
                 australium += enemy.Australium;
+
+                if (enemy.IsDead)
+                {
+                    xp += enemy.XP;
+                    PlayerStats.Instance.KILLED += 1;
+                }
+                else
+                {
+                    PlayerStats.Instance.HIRED += 1;
+                }
             }
         }
 
-        BattleApproachMessage = $"YOU WON!\nYou earned {australium} Australium.";
+        PlayerStats.Instance.AUSTRALIUM += australium;
+        PlayerStats.Instance.XP += xp;
 
+        BattleApproachMessage = $"YOU WON!\nYou earned {australium} Australium.";
+        
+        var leveledUp = false;
+        
+        while ((PlayerStats.Instance.LV == 1 && PlayerStats.Instance.XP > 10)
+               || (PlayerStats.Instance.LV == 2 && PlayerStats.Instance.XP > 30)
+               || (PlayerStats.Instance.LV == 3 && PlayerStats.Instance.XP > 70)
+               || (PlayerStats.Instance.LV == 4 && PlayerStats.Instance.XP > 120)
+               || (PlayerStats.Instance.LV == 5 && PlayerStats.Instance.XP > 200)
+               || (PlayerStats.Instance.LV == 6 && PlayerStats.Instance.XP > 300))
+        {
+            PlayerStats.Instance.LV += 1;
+            leveledUp = true;
+        }
+        
+        if (leveledUp)
+        {
+            BattleApproachMessage = $"\nLV UP!";
+
+            PlayerStats.Instance.MaxHP = PlayerStats.Instance.LV switch
+            {
+                2 => 25,
+                3 => 30,
+                4 => 35,
+                5 => 40,
+                6 => 45,
+                7 => 50,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            PlayerStats.Instance.HP = PlayerStats.Instance.MaxHP;
+            PlayerStats.Instance.UpdateHP();
+            _lvUpSFX.Play();
+            _infoLabel.text = $"{PlayerStats.Instance.PlayerName}   LV {PlayerStats.Instance.LV}   HP";
+        }
+        
         WriteStartMessage();
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 

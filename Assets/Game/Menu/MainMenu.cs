@@ -18,8 +18,8 @@ public sealed class MainMenu : MonoBehaviour
     private void Start()
     {
         var time = SaveSystem.GetFloat("Time", GameTimer.Instance.GetTime);
-        _infoLabel.text = $"{SaveSystem.GetString("PlayerName", "Miss")}   LV1     {(int)time - (int)time % 60}:{(int)time % 60}\n";
-        _infoLabel.text += $"{SaveSystem.GetString("Location", "???")}";
+        _infoLabel.text = $"{PlayerStats.Instance.PlayerName}   LV{PlayerStats.Instance.LV}     {(int)time - (int)time % 60}:{(int)time % 60}\n";
+        _infoLabel.text += $"{SaveSystem.GetString("Location", "???-???")}";
 
         _continueLabel.color = Color.yellow;
     }

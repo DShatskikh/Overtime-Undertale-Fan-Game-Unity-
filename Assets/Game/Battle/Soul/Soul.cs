@@ -13,30 +13,19 @@ public sealed class Soul : MonoBehaviour
     [SerializeField]
     private float _speed;
     
-    private float _health;
-    private float _maxHealth;
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private bool _isInvulnerability;
     private bool _isUber;
     public static Soul Instance { get; private set; }
-    public float GetHealth => _health;
-    public float GetMaxHealth => _maxHealth;
     public bool GetIsInvulnerability => _isInvulnerability;
-    public event Action<float, float> ChangeHealth;
+    
 
     private void Awake()
     {
         Instance = this;
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start()
-    {
-        _maxHealth = 20;
-        _health = _maxHealth;
-        ChangeHealth?.Invoke(_health, _maxHealth);
     }
 
     private void OnDisable()
@@ -58,10 +47,10 @@ public sealed class Soul : MonoBehaviour
             return;
         
         _damageSFX.Play();
-        _health -= damage;
+        PlayerStats.Instance.HP -= damage;
+        PlayerStats.Instance.UpdateHP();
         _animator.SetTrigger("Damage");
         StartCoroutine(AwaitInvulnerability());
-        ChangeHealth?.Invoke(_health, _maxHealth);
     }
 
     private IEnumerator AwaitInvulnerability()
@@ -73,14 +62,14 @@ public sealed class Soul : MonoBehaviour
 
     public void Heal(int health)
     {
-        _health += health;
+        PlayerStats.Instance.HP += health;
 
-        if (_health > _maxHealth)
-            _health = _maxHealth;
+        if (PlayerStats.Instance.HP > PlayerStats.Instance.MaxHP)
+            PlayerStats.Instance.HP = PlayerStats.Instance.MaxHP;
         
         _healSFX.Play();
         
-        ChangeHealth?.Invoke(_health, _maxHealth);
+        PlayerStats.Instance.UpdateHP();
     }
     
     public void Uber()

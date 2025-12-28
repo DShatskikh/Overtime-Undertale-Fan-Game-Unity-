@@ -55,7 +55,7 @@ public sealed class StartBattleAnimation : MonoBehaviour
             }
         }
 
-        var speed = Vector3.Distance(_soul.transform.position, transform.position + (Vector3)_targetPosition); // 5
+        var speed = Vector3.Distance(_soul.transform.position, transform.position + (Vector3)_targetPosition) > 3 ? Vector3.Distance(_soul.transform.position, transform.position + (Vector3)_targetPosition) : 3; // 5
         
         while (Vector3.Distance(_soul.transform.position, transform.position + (Vector3)_targetPosition) >= 0.1f)
         {

@@ -123,18 +123,7 @@ public sealed class CryingCat : Enemy
 
     public override void End()
     {
-        if (Health <= 0)
-        {
-            SaveSystem.SetBool("IsDummyKilled", true);
-            
-            var enemiesKilled = SaveSystem.GetInt("EnemiesKilled");
-            SaveSystem.SetInt("EnemiesKilled", enemiesKilled + 1);
-        }
-        else
-        {
-            var enemiesSpared = SaveSystem.GetInt("EnemiesSpared");
-            SaveSystem.SetInt("EnemiesSpared", enemiesSpared + 1);
-        }
+        
     }
 
     protected override void PlayerTurn()

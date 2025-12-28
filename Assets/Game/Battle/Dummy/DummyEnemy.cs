@@ -129,6 +129,11 @@ public sealed class DummyEnemy : Enemy
         if (Health <= 0)
         {
             SaveSystem.SetBool("IsDummyKilled", true);
+
+            if (IsDead)
+            {
+                PlayerStats.Instance.KILLED -= 1;
+            }
         }
         
         SaveSystem.SetInt("Cutscene_Hospital", 4);

@@ -32,10 +32,10 @@ public sealed class BeerBottleAttack : MonoBehaviour
             if (soul.GetIsInvulnerability)
                 return;
 
-            if (soul.GetHealth > 5)
+            if (PlayerStats.Instance.HP > 5)
                 soul.Damage(5);
             else
-                soul.Damage(soul.GetHealth - 1f);
+                soul.Damage(PlayerStats.Instance.HP - 1f);
             
             Instantiate(_shark, transform.position, Quaternion.identity, transform.parent);
             Destroy(gameObject); 

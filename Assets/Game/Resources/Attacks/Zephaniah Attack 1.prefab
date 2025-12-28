@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8290281489943814146}
   - component: {fileID: 452223224956822431}
   - component: {fileID: 2223372596494527153}
+  - component: {fileID: 3779480801371328566}
   m_Layer: 7
   m_Name: Ghost_4
   m_TagString: Untagged
@@ -124,6 +125,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.35
+--- !u!114 &3779480801371328566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211006743273837755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9cb3fcdf234ef48183e7c18b677c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
 --- !u!1 &2362367876625436744
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +149,7 @@ GameObject:
   - component: {fileID: 5047860969262789395}
   - component: {fileID: 7661110967957321991}
   - component: {fileID: 8034651109540632917}
+  - component: {fileID: 5700406895067356383}
   m_Layer: 7
   m_Name: Ghost_1
   m_TagString: Untagged
@@ -248,6 +263,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.35
+--- !u!114 &5700406895067356383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362367876625436744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9cb3fcdf234ef48183e7c18b677c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
 --- !u!1 &4158667816473817512
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +287,7 @@ GameObject:
   - component: {fileID: 1920859413893244356}
   - component: {fileID: 4169199934975477730}
   - component: {fileID: 4116522353238420960}
+  - component: {fileID: 804986687749239170}
   m_Layer: 7
   m_Name: Ghost_2
   m_TagString: Untagged
@@ -372,6 +401,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.35
+--- !u!114 &804986687749239170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158667816473817512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9cb3fcdf234ef48183e7c18b677c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
 --- !u!1 &5030832150294485520
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +483,7 @@ GameObject:
   - component: {fileID: 8791277145123128689}
   - component: {fileID: 2591202471574478925}
   - component: {fileID: 3940005201543436018}
+  - component: {fileID: 4364738141482411680}
   m_Layer: 7
   m_Name: Ghost_3
   m_TagString: Untagged
@@ -554,3 +597,16 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.35
+--- !u!114 &4364738141482411680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8668521699282893554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9cb3fcdf234ef48183e7c18b677c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0

@@ -30,8 +30,8 @@ public sealed class SaveScreen : MonoBehaviour
         _soul.enabled = false;
         
         var time = SaveSystem.GetFloat("Time", GameTimer.Instance.GetTime);
-        _label.text = $"{SaveSystem.GetString("PlayerName", "Miss")}   LV1     {(int)time - (int)time % 60}:{(int)time % 60}\n";
-        _label.text += $"{SaveSystem.GetString("Location", _locationName)}\n\n";
+        _label.text = $"{SaveSystem.GetString("PlayerName", PlayerStats.Instance.PlayerName)}   LV{PlayerStats.Instance.LV}     {(int)time - (int)time % 60}:{(int)time % 60}\n";
+        _label.text += $"{SaveSystem.GetString("Location", "???")}\n\n";
         _label.text += " Save       Return";
     }
 
@@ -68,7 +68,7 @@ public sealed class SaveScreen : MonoBehaviour
     {
         Destroy(_soul.gameObject);
         _label.color = Color.yellow;
-        _label.text = $"Denis   LV1     {(int)GameTimer.Instance.GetTime - (int)GameTimer.Instance.GetTime % 60}:{(int)GameTimer.Instance.GetTime % 60}\n";
+        _label.text = $"{PlayerStats.Instance.PlayerName}   LV{PlayerStats.Instance.LV}     {(int)GameTimer.Instance.GetTime - (int)GameTimer.Instance.GetTime % 60}:{(int)GameTimer.Instance.GetTime % 60}\n";
         _label.text += $"{_locationName}\n\n";
         _label.text += " File saved";
         yield return null;
@@ -80,6 +80,7 @@ public sealed class SaveScreen : MonoBehaviour
         SaveSystem.SetInt("SceneIndex", SceneManager.GetActiveScene().buildIndex);
         SaveSystem.SetString("Location", _locationName);
         SaveSystem.SetFloat("Time", GameTimer.Instance.GetTime);
+        PlayerStats.Instance.Save();
         SaveSystem.Save();
         
         Destroy(gameObject);

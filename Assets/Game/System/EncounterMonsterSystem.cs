@@ -49,9 +49,11 @@ public sealed class EncounterMonsterSystem : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        
+        if (Instance != null)
+            return;
+            
         ChangeZone(ZoneEnum.None);
+        Instance = this;
     }
 
     private void Start()
